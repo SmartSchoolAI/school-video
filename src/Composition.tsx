@@ -19,7 +19,7 @@ export const AdmissionVideo = ({ name, major }: { name: string; major: string })
       {/* 学校背景图 */}
       <div style={{ transform: `scale(${scale})`, width: '100%', height: '100%' }}>
         <img 
-          src="https://www.your-school.com/bg.jpg" // 替换为真实的学校大门照片
+          src="https://www.gdjxzsb.com/skin/images/banner2.jpg" // 替换为真实的学校大门照片
           style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
         />
         <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(139, 0, 0, 0.4)' }} />
