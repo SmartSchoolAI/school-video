@@ -38,8 +38,9 @@ const BaseLayout: React.FC<{ children: React.ReactNode; withAudio?: boolean }> =
     <AbsoluteFill
       style={{
         backgroundColor: theme.palette.background.main,
+        // 优先使用支持中日韩的字体，避免在 CI（Ubuntu）环境中中文变成方框
         fontFamily:
-          "Microsoft YaHei, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+          "'Noto Sans CJK SC', 'WenQuanYi Micro Hei', 'Microsoft YaHei', system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
       <CyberBackground />
