@@ -9,9 +9,12 @@ export const MajorDetails: React.FC<{
   const currentFrame = useCurrentFrame();
   const fps = 30;
 
-  const sectionProgress = currentFrame - frame;
-  const halfDuration = duration / 2;
-  const rightLocalFrame = Math.max(0, sectionProgress - halfDuration);
+  // 左侧从 frame + 15 开始依次进场，间隔 8 帧；右侧在左侧最后一张出现稍后一点再开始
+  const leftBaseOffset = 15;
+  const itemInterval = 8;
+  const leftLastStart = frame + leftBaseOffset + Math.max(0, majorDetails.features.length - 1) * itemInterval;
+  const rightStartGap = 10; // 左侧结束后再等 10 帧，避免空档太久
+  const rightStartFrame = leftLastStart + rightStartGap;
 
   const opacity = interpolate(currentFrame, [frame, frame + 20, frame + duration - 20, frame + duration], [0, 1, 1, 0], {
     extrapolateLeft: "clamp",
@@ -42,7 +45,7 @@ export const MajorDetails: React.FC<{
             <h3 style={{ fontSize: "32px", marginBottom: "30px", color: theme.palette.primary.light, borderLeft: `5px solid ${theme.palette.primary.light}`, paddingLeft: "15px" }}>核心技能实训 ▷</h3>
             {majorDetails.features.map((f, i) => {
                const spr = spring({
-                frame: currentFrame - (frame + 15 + i * 8),
+                frame: currentFrame - (frame + leftBaseOffset + i * itemInterval),
                 fps,
                 config: { damping: 12 },
               });
@@ -72,9 +75,9 @@ export const MajorDetails: React.FC<{
             })}
           </div>
 
-          {/* 右侧：职业发展方向（后半段开始出现） */}
+          {/* 右侧：职业发展方向（在左侧卡片结束后、短暂停顿后出现） */}
           <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-            {sectionProgress >= halfDuration && (
+            {currentFrame >= rightStartFrame && (
               <>
                 <h3
                   style={{
@@ -89,7 +92,7 @@ export const MajorDetails: React.FC<{
                 </h3>
                 {majorDetails.future.map((f, i) => {
                   const spr = spring({
-                    frame: rightLocalFrame - i * 8,
+                    frame: currentFrame - (rightStartFrame + i * itemInterval),
                     fps,
                     config: { damping: 12 },
                   });
