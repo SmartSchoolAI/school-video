@@ -32,6 +32,16 @@ const concatVideos = (parts: string[], output: string) => {
   }
 };
 
+const addBackgroundAudio = (input: string, output: string) => {
+  const audioPath = path.join(process.cwd(), 'public', 'welcome_music.mp3');
+  // 使用视频原始时长作为 BGM 时长（通过 -shortest 截断或循环）
+  const ffmpegCmd =
+    `ffmpeg -y -i "${input}" -stream_loop -1 -i "${audioPath}" ` +
+    `-c:v copy -c:a aac -shortest -map 0:v:0 -map 1:a:0 "${output}"`;
+  console.log('▶ 正在为最终视频叠加背景音乐:', ffmpegCmd);
+  execSync(ffmpegCmd, { stdio: 'inherit' });
+};
+
 const start = async () => {
   console.log('正在打包 Remotion 项目（分段渲染模式）...');
   const bundled = await bundle({
@@ -100,24 +110,34 @@ const start = async () => {
     });
     const studentSeconds = ((Date.now() - studentStart) / 1000).toFixed(1);
 
-    const finalPath = path.join(
+    const tempConcatPath = path.join(
       'out',
-      `${student.id}-${student.major}-${student.name}-fast.mp4`,
+      `${student.id}-${student.major}-${student.name}-fast-video-only.mp4`,
     );
 
     const concatStart = Date.now();
     concatVideos(
       [path.resolve(introPath), path.resolve(tempStudentPath), path.resolve(outroPath)],
-      path.resolve(finalPath),
+      path.resolve(tempConcatPath),
     );
     const concatSeconds = ((Date.now() - concatStart) / 1000).toFixed(1);
+
+    // 拼接完成后，再叠加一次全程背景音乐，避免分段时音频重复播放
+    const finalPath = path.join(
+      'out',
+      `${student.id}-${student.major}-${student.name}-fast.mp4`,
+    );
+
+    const audioStart = Date.now();
+    addBackgroundAudio(path.resolve(tempConcatPath), path.resolve(finalPath));
+    const audioSeconds = ((Date.now() - audioStart) / 1000).toFixed(1);
 
     const endTime = Date.now();
     const seconds = ((endTime - startTime) / 1000).toFixed(1);
 
     console.log(`✅ 快速版视频已生成: ${finalPath}`);
     console.log(
-      `⏱ 本次视频生成总耗时 ${seconds} 秒（其中 Student 段渲染 ${studentSeconds} 秒，ffmpeg 拼接 ${concatSeconds} 秒，不含首次 Intro/Outro 渲染）`,
+      `⏱ 本次视频生成总耗时 ${seconds} 秒（其中 Student 段渲染 ${studentSeconds} 秒，拼接视频 ${concatSeconds} 秒，叠加音频 ${audioSeconds} 秒，不含首次 Intro/Outro 渲染）`,
     );
   }
 };

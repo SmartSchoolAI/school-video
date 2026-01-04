@@ -30,7 +30,10 @@ const FOOTER_TEXT = "广东省高新技术高级技工学校 | FUTURE SKILLS · 
 
 const fps = 30;
 
-const BaseLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const BaseLayout: React.FC<{ children: React.ReactNode; withAudio?: boolean }> = ({
+  children,
+  withAudio = true,
+}) => {
   return (
     <AbsoluteFill
       style={{
@@ -41,8 +44,8 @@ const BaseLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     >
       <CyberBackground />
 
-      {/* 背景音乐 */}
-      <Audio src={staticFile("welcome_music.mp3")} loop volume={0.6} />
+      {/* 背景音乐（可选，分段渲染时关闭，避免拼接后重复播放） */}
+      {withAudio && <Audio src={staticFile("welcome_music.mp3")} loop volume={0.6} />}
 
       {/* 科技紫 + 淡红页脚 */}
       <div
@@ -86,7 +89,7 @@ const BaseLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 // 原始完整版本：用于 Remotion Studio 预览（保留完整结构）
 const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
   return (
-    <BaseLayout>
+    <BaseLayout withAudio>
       <Series>
         {/* 1. 开场：校名与主题 (0–5秒) */}
         <Series.Sequence durationInFrames={fps * 5}>
@@ -143,7 +146,7 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
 // 优化渲染：只包含“学校固定部分”的 Intro+School 段（0–31 秒）
 const AdmissionLetterIntroComp: React.FC<{ hero: Student }> = ({ hero }) => {
   return (
-    <BaseLayout>
+    <BaseLayout withAudio={false}>
       <Series>
         <Series.Sequence durationInFrames={fps * 5}>
           <Title
@@ -177,7 +180,7 @@ const AdmissionLetterIntroComp: React.FC<{ hero: Student }> = ({ hero }) => {
 // 优化渲染：只包含“学生档案”段（31–41 秒）
 const AdmissionLetterStudentComp: React.FC<AdmissionVideoProps> = (props) => {
   return (
-    <BaseLayout>
+    <BaseLayout withAudio={false}>
       <Series>
         <Series.Sequence durationInFrames={fps * 10}>
           <StudentInfo {...props} frame={0} duration={fps * 10} />
@@ -193,7 +196,7 @@ const AdmissionLetterOutroComp: React.FC<{ extraStudents: Student[]; quote: stri
   quote,
 }) => {
   return (
-    <BaseLayout>
+    <BaseLayout withAudio={false}>
       <Series>
         <Series.Sequence durationInFrames={fps * 9}>
           <StudentShowcase students={extraStudents} frame={0} duration={fps * 9} />
