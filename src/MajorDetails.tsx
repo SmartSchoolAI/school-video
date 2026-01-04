@@ -9,6 +9,10 @@ export const MajorDetails: React.FC<{
   const currentFrame = useCurrentFrame();
   const fps = 30;
 
+  const sectionProgress = currentFrame - frame;
+  const halfDuration = duration / 2;
+  const rightLocalFrame = Math.max(0, sectionProgress - halfDuration);
+
   const opacity = interpolate(currentFrame, [frame, frame + 20, frame + duration - 20, frame + duration], [0, 1, 1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -33,7 +37,7 @@ export const MajorDetails: React.FC<{
         </div>
 
         <div style={{ display: "flex", gap: "60px", flexGrow: 1 }}>
-          {/* 左侧：核心特色 */}
+          {/* 左侧：核心特色（始终显示） */}
           <div style={{ flex: 1.5 }}>
             <h3 style={{ fontSize: "32px", marginBottom: "30px", color: theme.palette.primary.light, borderLeft: `5px solid ${theme.palette.primary.light}`, paddingLeft: "15px" }}>核心技能实训 ▷</h3>
             {majorDetails.features.map((f, i) => {
@@ -52,7 +56,7 @@ export const MajorDetails: React.FC<{
                     borderRadius: "15px", 
                     fontSize: "28px",
                     borderLeft: `5px solid ${theme.palette.primary.main}`,
-                    transform: `translateX(${(1-spr)*100}px)`,
+                    transform: `translateX(${(1-spr)*100}px)` ,
                     opacity: spr,
                     boxShadow: "0 0 20px rgba(124, 77, 255, 0.55)",
                     display: "flex",
@@ -68,31 +72,70 @@ export const MajorDetails: React.FC<{
             })}
           </div>
 
-          {/* 右侧：就业前景 */}
+          {/* 右侧：职业发展方向（后半段开始出现） */}
           <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-            <div
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(15,23,42,0.5), rgba(76,29,149,0.7))",
-                border: `1px solid ${theme.palette.divider}`,
-                padding: "40px",
-                borderRadius: "30px",
-                flexGrow: 1,
-                boxShadow: "0 0 22px rgba(15, 23, 42, 0.85)",
-                backdropFilter: "blur(14px)",
-              }}
-            >
-              <h3 style={{ fontSize: "32px", marginBottom: "30px", color: theme.palette.secondary.light, borderLeft: `5px solid ${theme.palette.secondary.light}`, paddingLeft: "15px" }}>职业发展方向 ▷</h3>
-              {majorDetails.future.map((f, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: "20px", fontSize: "24px", marginBottom: "25px", textShadow: "0 0 10px rgba(236, 72, 153, 0.5)" }}>
-                  <div style={{ width: "12px", height: "12px", background: theme.palette.secondary.main, borderRadius: "50%", boxShadow: "0 0 10px rgba(244, 143, 177, 0.9)" }} />
-                  {f}
+            {sectionProgress >= halfDuration && (
+              <>
+                <h3
+                  style={{
+                    fontSize: "32px",
+                    marginBottom: "30px",
+                    color: theme.palette.secondary.light,
+                    borderLeft: `5px solid ${theme.palette.secondary.light}`,
+                    paddingLeft: "15px",
+                  }}
+                >
+                  职业发展方向 ▷
+                </h3>
+                {majorDetails.future.map((f, i) => {
+                  const spr = spring({
+                    frame: rightLocalFrame - i * 8,
+                    fps,
+                    config: { damping: 12 },
+                  });
+                  return (
+                    <div
+                      key={i}
+                      style={{
+                        background:
+                          "linear-gradient(135deg, rgba(15,23,42,0.4), rgba(76,29,149,0.6))",
+                        padding: "25px 40px",
+                        marginBottom: "20px",
+                        borderRadius: "15px",
+                        fontSize: "26px",
+                        borderLeft: `5px solid ${theme.palette.secondary.main}`,
+                        transform: `translateX(${(1 - spr) * 100}px)` ,
+                        opacity: spr,
+                        boxShadow: "0 0 20px rgba(244, 143, 177, 0.55)",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "20px",
+                        backdropFilter: "blur(12px)",
+                        border: "1px solid rgba(248,250,252,0.12)",
+                        textShadow: "0 0 10px rgba(236, 72, 153, 0.6)",
+                      }}
+                    >
+                      <span style={{ fontSize: "30px", color: theme.palette.secondary.main }}>✨</span>
+                      {f}
+                    </div>
+                  );
+                })}
+                <div
+                  style={{
+                    marginTop: "30px",
+                    padding: "20px 24px",
+                    background: "rgba(15,23,42,0.9)",
+                    borderRadius: "12px",
+                    fontSize: "18px",
+                    color: theme.palette.text.secondary,
+                    border: `1px dashed ${theme.palette.secondary.main}`,
+                    boxShadow: "0 0 18px rgba(15,23,42,0.85)",
+                  }}
+                >
+                  * 该专业连续5年就业率超98%，与300强企业深度合作
                 </div>
-              ))}
-              <div style={{ marginTop: "40px", padding: "20px", background: "rgba(15,23,42,0.9)", borderRadius: "10px", fontSize: "18px", color: theme.palette.text.secondary, border: `1px dashed ${theme.palette.secondary.main}` }}>
-                * 该专业连续5年就业率超98%，与300强企业深度合作
-              </div>
-            </div>
+              </>
+            )}
           </div>
         </div>
       </div>
