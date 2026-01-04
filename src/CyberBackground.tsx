@@ -28,12 +28,6 @@ export const CyberBackground: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.palette.background.main, overflow: 'hidden' }}>
-      {/* 底部背景图 */}
-      <Img
-        src={staticFile("school_bg.jpg")}
-        style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover', opacity: 0.28 }}
-        alt="School Background"
-      />
 
       {/* 极光背景 - 科技紫 + 淡红 */}
       <div 
