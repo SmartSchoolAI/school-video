@@ -192,6 +192,22 @@ const AdmissionLetterStudentComp: React.FC<AdmissionVideoProps> = (props) => {
   );
 };
 
+// 新增：只包含“专业蓝图（电子商务等专业介绍）”的专业片段
+// 方便单独渲染某个专业介绍，例如 “电子商务 (现代商务方向)”
+const AdmissionMajorDetailsComp: React.FC<{ majorDetails: AdmissionVideoProps["majorDetails"] }> = ({
+  majorDetails,
+}) => {
+  return (
+    <BaseLayout withAudio={false}>
+      <Series>
+        <Series.Sequence durationInFrames={fps * 8}>
+          <MajorDetails majorDetails={majorDetails} frame={0} duration={fps * 8} />
+        </Series.Sequence>
+      </Series>
+    </BaseLayout>
+  );
+};
+
 // 优化渲染：只包含“明星群像 + 结语”段（41–55 秒）
 const AdmissionLetterOutroComp: React.FC<{ extraStudents: Student[]; quote: string }> = ({
   extraStudents,
@@ -288,6 +304,17 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         defaultProps={{ extraStudents, quote: hero.quote }}
+      />
+
+      {/* 只包含专业蓝图的独立片段（例如：电子商务 (现代商务方向)） */}
+      <Composition
+        id="AdmissionMajorDetails"
+        component={AdmissionMajorDetailsComp}
+        durationInFrames={fps * 8}
+        fps={fps}
+        width={1920}
+        height={1080}
+        defaultProps={{ majorDetails: hero.majorDetails }}
       />
 
       {/* 校园风景展示独立视频（基于 public/01-10.jpg） */}
