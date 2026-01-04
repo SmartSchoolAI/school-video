@@ -9,6 +9,7 @@ import { CyberBackground } from "./CyberBackground";
 import rawStudents from "./students.json";
 import { StudentShowcase, type Student } from "./StudentShowcase";
 import { theme } from "./theme";
+import { CampusScenery } from "./CampusScenery";
 
 export type AdmissionVideoProps = {
   // 主打一位“明星学生”的详细信息（沿用原有结构）
@@ -287,6 +288,17 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         defaultProps={{ extraStudents, quote: hero.quote }}
+      />
+
+      {/* 校园风景展示独立视频（基于 public/01-10.jpg） */}
+      <Composition
+        id="CampusScenery"
+        component={CampusScenery}
+        durationInFrames={fps * 30}
+        fps={fps}
+        width={1920}
+        height={1080}
+        defaultProps={{}}
       />
     </>
   );

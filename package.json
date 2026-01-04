@@ -35,7 +35,9 @@
     "lint": "eslint src && tsc",
     "start": "remotion start",
     "build:videos": "ts-node src/render-videos.ts",
-    "build:videos:fast": "ts-node src/render-videos-fast.ts"
+    "build:videos:fast": "ts-node src/render-videos-fast.ts",
+    "build:moral-videos": "ts-node src/render-moral-videos.ts",
+    "build:scenery-video": "ts-node src/render-scenery-videos.ts"
   },
   "sideEffects": [
     "*.css"
