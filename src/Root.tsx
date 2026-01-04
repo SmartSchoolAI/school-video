@@ -135,7 +135,7 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
         </Series.Sequence>
 
         {/* 6. 校园风景独立段落 */}
-        <Series.Sequence durationInFrames={fps * 30}>
+        <Series.Sequence durationInFrames={825}>
           <CampusScenery />
         </Series.Sequence>
 
@@ -259,7 +259,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="AdmissionLetter"
         component={AdmissionLetterComp}
-        durationInFrames={fps * 93}
+        durationInFrames={2715}
         fps={fps}
         width={1920}
         height={1080}
@@ -349,7 +349,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="CampusScenery"
         component={CampusScenery}
-        durationInFrames={fps * 30}
+        durationInFrames={825}
         fps={fps}
         width={1920}
         height={1080}
