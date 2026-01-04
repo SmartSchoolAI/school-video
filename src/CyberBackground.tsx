@@ -14,6 +14,18 @@ export const CyberBackground: React.FC = () => {
     config: { damping: 20, stiffness: 100 },
   });
 
+  // 背景渐变的“呼吸感”与位移动画（模拟 react-spring 那种柔和流动）
+  const bgSpring = spring({
+    frame,
+    fps,
+    // 更柔和一点：阻尼略大，刚度略小
+    config: { damping: 20, stiffness: 32 },
+  });
+
+  // 降低振幅，让位移更细腻
+  const waveX = Math.sin(frame / 90) * 8;
+  const waveY = Math.cos(frame / 150) * 6;
+
   return (
     <AbsoluteFill style={{ backgroundColor: theme.palette.background.main, overflow: 'hidden' }}>
       {/* 底部背景图 */}
@@ -33,7 +45,7 @@ export const CyberBackground: React.FC = () => {
         }}
       />
 
-      {/* 动态梦幻极光流 */}
+      {/* 动态梦幻极光流 - 深紫主层 */}
       <div 
         style={{
           position: 'absolute',
@@ -41,9 +53,26 @@ export const CyberBackground: React.FC = () => {
           height: '200%',
           background:
             'radial-gradient(ellipse at center, rgba(124, 77, 255, 0.32) 0%, transparent 70%)',
-          top: '-50%',
-          left: `${-50 + Math.sin(frame / 50) * 10}%`,
+          top: `${-55 + waveY * 0.3}%`,
+          left: `${-55 + waveX * 0.8}%`,
           filter: 'blur(95px)',
+          transform: `scale(${1 + bgSpring * 0.08})`,
+        }}
+      />
+
+      {/* 动态梦幻极光流 - 淡红副层 */}
+      <div
+        style={{
+          position: 'absolute',
+          width: '220%',
+          height: '220%',
+          background:
+            'radial-gradient(ellipse at center, rgba(244, 143, 177, 0.26) 0%, transparent 75%)',
+          bottom: `${-60 + waveY * 0.4}%`,
+          right: `${-60 - waveX * 0.4}%`,
+          filter: 'blur(110px)',
+          mixBlendMode: 'screen',
+          transform: `scale(${1.05 + bgSpring * 0.06})`,
         }}
       />
 

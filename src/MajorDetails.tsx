@@ -46,7 +46,7 @@ export const MajorDetails: React.FC<{
                 <div 
                   key={i} 
                   style={{ 
-                    background: "rgba(76, 29, 149, 0.65)", 
+                    background: "linear-gradient(135deg, rgba(15,23,42,0.4), rgba(76,29,149,0.6))", 
                     padding: "25px 40px", 
                     marginBottom: "20px", 
                     borderRadius: "15px", 
@@ -54,10 +54,12 @@ export const MajorDetails: React.FC<{
                     borderLeft: `5px solid ${theme.palette.primary.main}`,
                     transform: `translateX(${(1-spr)*100}px)`,
                     opacity: spr,
-                    boxShadow: "0 0 26px rgba(124, 77, 255, 0.7)",
+                    boxShadow: "0 0 20px rgba(124, 77, 255, 0.55)",
                     display: "flex",
                     alignItems: "center",
-                    gap: "20px"
+                    gap: "20px",
+                    backdropFilter: "blur(12px)",
+                    border: "1px solid rgba(248,250,252,0.12)",
                   }}
                 >
                   <span style={{ fontSize: "30px", color: theme.palette.secondary.main }}>🔹</span> {f}
@@ -68,7 +70,18 @@ export const MajorDetails: React.FC<{
 
           {/* 右侧：就业前景 */}
           <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-            <div style={{ background: "rgba(15, 23, 42, 0.9)", border: `1px solid ${theme.palette.divider}` , padding: "40px", borderRadius: "30px", flexGrow: 1, boxShadow: "0 0 26px rgba(15, 23, 42, 0.9)" }}>
+            <div
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(15,23,42,0.5), rgba(76,29,149,0.7))",
+                border: `1px solid ${theme.palette.divider}`,
+                padding: "40px",
+                borderRadius: "30px",
+                flexGrow: 1,
+                boxShadow: "0 0 22px rgba(15, 23, 42, 0.85)",
+                backdropFilter: "blur(14px)",
+              }}
+            >
               <h3 style={{ fontSize: "32px", marginBottom: "30px", color: theme.palette.secondary.light, borderLeft: `5px solid ${theme.palette.secondary.light}`, paddingLeft: "15px" }}>职业发展方向 ▷</h3>
               {majorDetails.future.map((f, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: "20px", fontSize: "24px", marginBottom: "25px", textShadow: "0 0 10px rgba(236, 72, 153, 0.5)" }}>

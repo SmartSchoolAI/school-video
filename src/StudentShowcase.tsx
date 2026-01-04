@@ -60,15 +60,15 @@ export const StudentShowcase: React.FC<{
         const avgScore = Math.round(
           stu.grades.reduce((sum, g) => sum + g.score, 0) / stu.grades.length
         );
+        const scoreSpringFrame = currentFrame - (segStart + 5);
+        const scoreProgress = spring({
+          frame: scoreSpringFrame,
+          fps,
+          // 再降低一点阻尼、提高刚度，让回弹更明显
+          config: { damping: 9, stiffness: 110 },
+        });
 
-        const score = Math.round(
-          interpolate(
-            currentFrame,
-            [segStart + 5, segStart + 25],
-            [0, avgScore],
-            { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-          )
-        );
+        const score = Math.round(scoreProgress * avgScore);
 
         return (
           <div
@@ -222,7 +222,7 @@ export const StudentShowcase: React.FC<{
                 >
                   <div
                     style={{
-                      width: `${Math.min(100, (score / 100) * 100)}%`,
+                      width: `${Math.min(100, scoreProgress * (avgScore || 1))}%`,
                       height: "100%",
                       background:
                         "linear-gradient(90deg, #7C4DFF, #E040FB, #FF80AB)",

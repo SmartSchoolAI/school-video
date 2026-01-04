@@ -235,15 +235,17 @@ export const StudentInfo: React.FC<{
           </div>
         </div>
 
-        {/* 右侧：科技紫成绩单 */}
+        {/* 右侧：科技紫成绩单（毛玻璃稍微减弱一点） */}
         <div
           style={{
-            background: theme.palette.background.paper,
+            background:
+              "linear-gradient(135deg, rgba(15,23,42,0.55), rgba(76,29,149,0.75))",
             borderRadius: "40px",
             border: `1px solid ${theme.palette.divider}`,
             padding: "36px 40px",
             color: theme.palette.text.primary,
-            boxShadow: "0 24px 50px rgba(15, 23, 42, 0.9)",
+            boxShadow: "0 24px 46px rgba(15, 23, 42, 0.88)",
+            backdropFilter: "blur(14px)",
           }}
         >
           <h3
