@@ -58,20 +58,26 @@ const start = async () => {
   const outroPath = path.join('out', '_outro-base.mp4');
 
   console.log('▶ 渲染通用 Intro 片段（只执行一次）...');
+  const introStart = Date.now();
   await renderMedia({
     composition: introComp,
     serveUrl: bundled,
     outputLocation: introPath,
     codec: 'h264',
   });
+  const introSeconds = ((Date.now() - introStart) / 1000).toFixed(1);
+  console.log(`⏱ Intro 片段渲染耗时 ${introSeconds} 秒`);
 
   console.log('▶ 渲染通用 Outro 片段（只执行一次）...');
+  const outroStart = Date.now();
   await renderMedia({
     composition: outroComp,
     serveUrl: bundled,
     outputLocation: outroPath,
     codec: 'h264',
   });
+  const outroSeconds = ((Date.now() - outroStart) / 1000).toFixed(1);
+  console.log(`⏱ Outro 片段渲染耗时 ${outroSeconds} 秒`);
 
   for (const student of students) {
     console.log(`\n▶ 正在为 ${student.name} 生成【快速版】录取通知书视频...`);
@@ -84,6 +90,7 @@ const start = async () => {
 
     const tempStudentPath = path.join('out', `_student-${student.id}.mp4`);
 
+    const studentStart = Date.now();
     await renderMedia({
       composition: studentComp,
       serveUrl: bundled,
@@ -91,22 +98,27 @@ const start = async () => {
       inputProps,
       codec: 'h264',
     });
+    const studentSeconds = ((Date.now() - studentStart) / 1000).toFixed(1);
 
     const finalPath = path.join(
       'out',
       `${student.id}-${student.major}-${student.name}-fast.mp4`,
     );
 
+    const concatStart = Date.now();
     concatVideos(
       [path.resolve(introPath), path.resolve(tempStudentPath), path.resolve(outroPath)],
       path.resolve(finalPath),
     );
+    const concatSeconds = ((Date.now() - concatStart) / 1000).toFixed(1);
 
     const endTime = Date.now();
     const seconds = ((endTime - startTime) / 1000).toFixed(1);
 
     console.log(`✅ 快速版视频已生成: ${finalPath}`);
-    console.log(`⏱ 本次视频生成耗时 ${seconds} 秒（不含首次 Intro/Outro 渲染）`);
+    console.log(
+      `⏱ 本次视频生成总耗时 ${seconds} 秒（其中 Student 段渲染 ${studentSeconds} 秒，ffmpeg 拼接 ${concatSeconds} 秒，不含首次 Intro/Outro 渲染）`,
+    );
   }
 };
 
@@ -114,4 +126,3 @@ start().catch((err) => {
   console.error('❌ 渲染过程中发生错误:', err);
   process.exit(1);
 });
-
