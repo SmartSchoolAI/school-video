@@ -48,7 +48,7 @@ export const HonorMilestones: React.FC<{ frame: number; duration: number }> = ({
         style={{
           display: 'flex',
           flexWrap: 'wrap',
-          justifyContent: 'center',
+          justifyContent: 'space-between',
           gap: '18px',
         }}
       >
@@ -76,6 +76,8 @@ export const HonorMilestones: React.FC<{ frame: number; duration: number }> = ({
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
+                width: '45%',
+                justifyContent: 'flex-start',
               }}
             >
               <span style={{ fontSize: '26px' }}>🏅</span>

@@ -14,6 +14,8 @@ const start = async () => {
   for (const student of students) {
     console.log(`正在为 ${student.name} 生成【超高清・科技感】录取通知书视频...`);
 
+    const startTime = Date.now();
+
     const inputProps = {
       ...student,
     };
@@ -32,7 +34,11 @@ const start = async () => {
       codec: 'h264',
     });
 
+    const endTime = Date.now();
+    const seconds = ((endTime - startTime) / 1000).toFixed(1);
+
     console.log(`✅ 视频已生成: out/${student.id}-${student.major}-${student.name}.mp4`);
+    console.log(`⏱ 本次视频生成耗时 ${seconds} 秒`);
   }
 };
 
