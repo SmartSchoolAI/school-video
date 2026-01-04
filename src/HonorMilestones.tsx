@@ -29,30 +29,33 @@ export const HonorMilestones: React.FC<{ frame: number; duration: number }> = ({
     <AbsoluteFill
       style={{
         opacity,
-        padding: '70px 80px',
+        padding: '70px 32px 60px',
         color: theme.palette.text.primary,
+        display: 'flex',
+        justifyContent: 'center',
       }}
     >
-      <h2
-        style={{
-          fontSize: '56px',
-          color: theme.palette.primary.light,
-          textAlign: 'center',
-          marginBottom: '50px',
-          textShadow: '0 0 24px rgba(124, 77, 255, 0.95)',
-        }}
-      >
-        学校荣耀 · 核心优势
-      </h2>
-      
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          gap: '18px',
-        }}
-      >
+      <div style={{ width: '100%', maxWidth: 900 }}>
+        <h2
+          style={{
+            fontSize: '48px',
+            color: theme.palette.primary.light,
+            textAlign: 'center',
+            marginBottom: '40px',
+            textShadow: '0 0 24px rgba(124, 77, 255, 0.95)',
+          }}
+        >
+          学校荣耀 · 核心优势
+        </h2>
+        
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            gap: '16px',
+          }}
+        >
         {awards.map((award, i) => {
           const entry = frame + 20 + i * 8;
           const spr = spring({
@@ -67,17 +70,17 @@ export const HonorMilestones: React.FC<{ frame: number; duration: number }> = ({
               style={{
                 background:
                   'linear-gradient(135deg, rgba(24, 16, 48, 0.95), rgba(76, 29, 149, 0.98))',
-                padding: '16px 30px',
+                padding: '16px 26px',
                 borderRadius: '999px',
                 border: '1px solid rgba(180, 124, 255, 0.9)',
                 fontSize: '20px',
-                transform: `translateX(${(1 - spr) * 140}px)`,
+                transform: `translateX(${(1 - spr) * 120}px)`,
                 opacity: spr,
                 boxShadow: '0 16px 40px rgba(15, 23, 42, 0.95)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
-                width: '45%',
+                width: '100%',
                 justifyContent: 'flex-start',
               }}
             >
@@ -86,18 +89,19 @@ export const HonorMilestones: React.FC<{ frame: number; duration: number }> = ({
             </div>
           );
         })}
-      </div>
+        </div>
 
-      <div
-        style={{
-          marginTop: '60px',
-          textAlign: 'center',
-          fontSize: '24px',
-          fontStyle: 'italic',
-          color: theme.palette.secondary.light,
-        }}
-      >
-        “厚德·强能·进取·创新 —— 以质量树品牌，以品牌创一流”
+        <div
+          style={{
+            marginTop: '40px',
+            textAlign: 'center',
+            fontSize: '22px',
+            fontStyle: 'italic',
+            color: theme.palette.secondary.light,
+          }}
+        >
+          “厚德·强能·进取·创新 —— 以质量树品牌，以品牌创一流”
+        </div>
       </div>
     </AbsoluteFill>
   );

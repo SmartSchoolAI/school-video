@@ -44,16 +44,20 @@ export const StudentInfo: React.FC<{
     <AbsoluteFill
       style={{
         opacity,
-        padding: "60px 80px",
+        padding: "60px 32px 50px",
         color: theme.palette.text.primary,
+        display: "flex",
+        justifyContent: "center",
       }}
     >
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "1.2fr 0.8fr",
-          gap: "30px",
-          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          gap: "40px",
+          width: "100%",
+          maxWidth: 900,
+          margin: "0 auto",
         }}
       >
         {/* 左侧：科技紫档案卡 */}
@@ -96,7 +100,7 @@ export const StudentInfo: React.FC<{
             <div>
               <h2
                 style={{
-                  fontSize: "52px",
+                  fontSize: "60px",
                   marginBottom: "5px",
                   color: theme.palette.secondary.light,
                   textShadow: "0 0 18px rgba(236, 72, 153, 0.9)",
@@ -104,13 +108,13 @@ export const StudentInfo: React.FC<{
               >
                 {name}
               </h2>
-              <p style={{ fontSize: "22px", color: theme.palette.text.muted }}>
+              <p style={{ fontSize: "24px", color: theme.palette.text.muted }}>
                 NO.{profile.studentId}
               </p>
               <div
                 style={{
                   marginTop: "18px",
-                  fontSize: "18px",
+                  fontSize: "20px",
                   background: "rgba(76, 29, 149, 0.5)",
                   display: "inline-block",
                   padding: "6px 18px",
@@ -124,7 +128,7 @@ export const StudentInfo: React.FC<{
               <div
                 style={{
                   marginTop: "10px",
-                  fontSize: "16px",
+                  fontSize: "18px",
                   color: theme.palette.text.secondary,
                   opacity: 0.9,
                 }}
@@ -154,7 +158,7 @@ export const StudentInfo: React.FC<{
               <div
                 style={{
                   opacity: 0.8,
-                  fontSize: "15px",
+                  fontSize: "16px",
                   marginBottom: "6px",
                   color: theme.palette.text.muted,
                 }}
@@ -175,7 +179,7 @@ export const StudentInfo: React.FC<{
               <div
                 style={{
                   opacity: 0.8,
-                  fontSize: "15px",
+                  fontSize: "16px",
                   marginBottom: "6px",
                   color: theme.palette.text.muted,
                 }}
@@ -235,7 +239,7 @@ export const StudentInfo: React.FC<{
           </div>
         </div>
 
-        {/* 右侧：科技紫成绩单（毛玻璃稍微减弱一点） */}
+        {/* 下方：科技紫成绩单（毛玻璃稍微减弱一点） */}
         <div
           style={{
             background:
@@ -272,7 +276,7 @@ export const StudentInfo: React.FC<{
                     display: "flex",
                     justifyContent: "space-between",
                     marginBottom: "8px",
-                    fontSize: "20px",
+                    fontSize: "22px",
                   }}
                 >
                   <span>{g.subject}</span>
@@ -311,14 +315,14 @@ export const StudentInfo: React.FC<{
           >
             <p
               style={{
-                fontSize: "22px",
+                fontSize: "24px",
                 fontWeight: "bold",
                 color: theme.palette.text.secondary,
               }}
             >
               入学综合评分 95.5
             </p>
-            <p style={{ fontSize: "13px", opacity: 0.7, marginTop: "8px" }}>
+            <p style={{ fontSize: "14px", opacity: 0.7, marginTop: "8px" }}>
               恭喜通过高新智学评价体系认证
             </p>
           </div>

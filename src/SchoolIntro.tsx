@@ -32,16 +32,16 @@ export const SchoolIntro: React.FC<{ frame: number; duration: number }> = ({ fra
     <AbsoluteFill
       style={{
         opacity,
-        padding: '60px 80px',
+        padding: '80px 40px',
         color: theme.palette.text.primary,
       }}
     >
       <h2
         style={{
-          fontSize: '60px',
+          fontSize: '48px',
           textAlign: 'center',
           color: theme.palette.primary.light,
-          marginBottom: '40px',
+          marginBottom: '32px',
           textShadow: '0 0 24px rgba(124, 77, 255, 0.8)',
         }}
       >
@@ -51,8 +51,10 @@ export const SchoolIntro: React.FC<{ frame: number; duration: number }> = ({ fra
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '28px',
+          gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+          gap: '24px',
+          maxWidth: '900px',
+          margin: '0 auto',
         }}
       >
         {highlights.map((item, i) => {

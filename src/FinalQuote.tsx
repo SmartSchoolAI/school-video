@@ -23,13 +23,15 @@ export const FinalQuote: React.FC<{ quote: string; frame: number; duration: numb
     >
       <div 
         style={{
-          padding: '50px 90px',
+          padding: '40px 32px',
           borderRadius: '40px',
           background:
             'linear-gradient(135deg, rgba(24, 16, 48, 0.96), rgba(76, 29, 149, 0.98))',
           border: `1px solid ${theme.palette.divider}`,
           boxShadow: '0 26px 60px rgba(15,23,42,0.95)',
           textAlign: 'center',
+          maxWidth: 900,
+          margin: '0 24px',
         }}
       >
         <h2

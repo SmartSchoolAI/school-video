@@ -33,7 +33,7 @@ export const StudentShowcase: React.FC<{
   return (
     <AbsoluteFill
       style={{
-        padding: "60px 120px",
+        padding: "60px 24px 50px",
         color: theme.palette.text.primary,
         display: "flex",
         alignItems: "center",
@@ -79,10 +79,10 @@ export const StudentShowcase: React.FC<{
               transform: `translateY(${(1 - entrance) * 40}px) scale(${0.9 + entrance * 0.1})`,
               transition: "opacity 0.3s",
               width: "100%",
-              maxWidth: "1300px",
+              maxWidth: 900,
               display: "grid",
-              gridTemplateColumns: "1.2fr 0.8fr",
-              gap: "40px",
+              gridTemplateColumns: "1fr",
+              gap: "24px",
             }}
           >
             {/* 左侧：照片 + 基本信息 */}

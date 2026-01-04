@@ -261,8 +261,8 @@ export const RemotionRoot: React.FC = () => {
         component={AdmissionLetterComp}
         durationInFrames={2715}
         fps={fps}
-        width={1920}
-        height={1080}
+        width={1080}
+        height={1920}
         defaultProps={{
           name: hero.name,
           major: hero.major,
@@ -284,8 +284,8 @@ export const RemotionRoot: React.FC = () => {
         component={AdmissionLetterIntroComp}
         durationInFrames={fps * 31}
         fps={fps}
-        width={1920}
-        height={1080}
+        width={1080}
+        height={1920}
         defaultProps={{ hero }}
       />
 
@@ -295,8 +295,8 @@ export const RemotionRoot: React.FC = () => {
         component={AdmissionLetterStudentComp}
         durationInFrames={fps * 10}
         fps={fps}
-        width={1920}
-        height={1080}
+        width={1080}
+        height={1920}
         defaultProps={{
           name: hero.name,
           major: hero.major,
@@ -318,20 +318,9 @@ export const RemotionRoot: React.FC = () => {
         component={AdmissionLetterOutroComp}
         durationInFrames={fps * 14}
         fps={fps}
-        width={1920}
-        height={1080}
+        width={1080}
+        height={1920}
         defaultProps={{ extraStudents, quote: hero.quote }}
-      />
-
-      {/* 只包含专业蓝图的独立片段（例如：电子商务 (现代商务方向)） */}
-      <Composition
-        id="AdmissionMajorDetails"
-        component={AdmissionMajorDetailsComp}
-        durationInFrames={fps * 8}
-        fps={fps}
-        width={1920}
-        height={1080}
-        defaultProps={{ majorDetails: hero.majorDetails }}
       />
 
       {/* 只包含“汽车维修专业蓝图”的独立片段 */}
@@ -340,8 +329,8 @@ export const RemotionRoot: React.FC = () => {
         component={AdmissionMajorDetailsComp}
         durationInFrames={fps * 8}
         fps={fps}
-        width={1920}
-        height={1080}
+        width={1080}
+        height={1920}
         defaultProps={{ majorDetails: students[1].majorDetails }}
       />
 
@@ -351,8 +340,8 @@ export const RemotionRoot: React.FC = () => {
         component={CampusScenery}
         durationInFrames={825}
         fps={fps}
-        width={1920}
-        height={1080}
+        width={1080}
+        height={1920}
         defaultProps={{}}
       />
     </>

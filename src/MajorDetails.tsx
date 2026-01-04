@@ -26,22 +26,64 @@ export const MajorDetails: React.FC<{
   }
 
   return (
-    <AbsoluteFill style={{ opacity, padding: "80px", color: theme.palette.text.primary }}>
-      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        {/* 专业头 */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "60px", borderBottom: `2px solid ${theme.palette.divider}`, paddingBottom: "20px" }}>
-          <div>
-            <span style={{ color: theme.palette.secondary.main, fontSize: "24px", letterSpacing: "4px" }}>专业蓝图 / MAJOR BLUEPRINT</span>
-            <h2 style={{ fontSize: "72px", color: theme.palette.text.primary, margin: "10px 0 0 0", textShadow: "0 0 24px rgba(124, 77, 255, 0.8)" }}>{majorDetails.title}</h2>
-          </div>
-          <div style={{ fontSize: "28px", color: theme.palette.secondary.light, fontStyle: "italic", textShadow: "0 0 16px rgba(244, 143, 177, 0.8)" }}>
+    <AbsoluteFill
+      style={{
+        opacity,
+        padding: "80px 24px 60px",
+        color: theme.palette.text.primary,
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <div style={{ display: "flex", flexDirection: "column", height: "100%", maxWidth: 1000, margin: "0 auto" }}>
+        {/* 专业头：竖屏上下结构 */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+            marginBottom: "48px",
+            borderBottom: `2px solid ${theme.palette.divider}`,
+            paddingBottom: "20px",
+            gap: "16px",
+          }}
+        >
+          <span
+            style={{
+              color: theme.palette.secondary.main,
+              fontSize: "22px",
+              letterSpacing: "4px",
+            }}
+          >
+            专业蓝图 / MAJOR BLUEPRINT
+          </span>
+          <h2
+            style={{
+              fontSize: "64px",
+              color: theme.palette.text.primary,
+              margin: "0",
+              textShadow: "0 0 24px rgba(124, 77, 255, 0.8)",
+            }}
+          >
+            {majorDetails.title}
+          </h2>
+          <div
+            style={{
+              fontSize: "26px",
+              color: theme.palette.secondary.light,
+              fontStyle: "italic",
+              textShadow: "0 0 16px rgba(244, 143, 177, 0.8)",
+              maxWidth: 820,
+            }}
+          >
             “{majorDetails.motto}”
           </div>
         </div>
 
-        <div style={{ display: "flex", gap: "60px", flexGrow: 1 }}>
-          {/* 左侧：核心特色（始终显示） */}
-          <div style={{ flex: 1.5 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "32px", flexGrow: 1 }}>
+          {/* 上：核心特色（始终显示） */}
+          <div>
             <h3 style={{ fontSize: "32px", marginBottom: "30px", color: theme.palette.primary.light, borderLeft: `5px solid ${theme.palette.primary.light}`, paddingLeft: "15px" }}>核心技能实训 ▷</h3>
             {majorDetails.features.map((f, i) => {
                const spr = spring({
@@ -75,8 +117,8 @@ export const MajorDetails: React.FC<{
             })}
           </div>
 
-          {/* 右侧：职业发展方向（在左侧卡片结束后、短暂停顿后出现，整体包在面板里） */}
-          <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+          {/* 下：职业发展方向（在左侧卡片结束后、短暂停顿后出现，整体包在面板里） */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
             {currentFrame >= rightStartFrame && (
               <div
                 style={{

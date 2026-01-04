@@ -31,9 +31,18 @@ export const Title: React.FC<{ title: string; subtitle?: string; frame: number; 
         alignItems: 'center',
         opacity,
         flexDirection: 'column',
+        padding: '0 40px',
       }}
     >
-      <div style={{ display: 'flex', gap: '5px' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: '5px',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          maxWidth: '100%',
+        }}
+      >
         {characters.map((char, i) => {
           const charEntryFrame = frame + i * 3;
           const charOpacity = interpolate(currentFrame, [charEntryFrame, charEntryFrame + 15], [0, 1]);
@@ -48,7 +57,7 @@ export const Title: React.FC<{ title: string; subtitle?: string; frame: number; 
             <span
               key={i}
               style={{
-                fontSize: '110px',
+                fontSize: '80px',
                 fontWeight: 900,
                 color: theme.palette.text.primary,
                 display: 'inline-block',
@@ -69,7 +78,8 @@ export const Title: React.FC<{ title: string; subtitle?: string; frame: number; 
       <div 
         style={{
           height: '2px',
-          width: '800px',
+          width: '80%',
+          maxWidth: '800px',
           background:
             'linear-gradient(to right, transparent, #7C4DFF, #E040FB, #FF80AB, transparent)',
           marginTop: '40px',
