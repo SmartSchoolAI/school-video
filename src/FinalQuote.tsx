@@ -1,4 +1,5 @@
 import { AbsoluteFill, useCurrentFrame, interpolate } from 'remotion';
+import { theme } from './theme';
 
 export const FinalQuote: React.FC<{ quote: string; frame: number; duration: number }> = ({ quote, frame, duration }) => {
   const currentFrame = useCurrentFrame();
@@ -17,7 +18,7 @@ export const FinalQuote: React.FC<{ quote: string; frame: number; duration: numb
         justifyContent: 'center',
         alignItems: 'center',
         opacity,
-        color: '#4a2b1a',
+        color: theme.palette.text.primary,
       }}
     >
       <div 
@@ -25,9 +26,9 @@ export const FinalQuote: React.FC<{ quote: string; frame: number; duration: numb
           padding: '50px 90px',
           borderRadius: '40px',
           background:
-            'linear-gradient(135deg, rgba(255, 248, 240, 0.97), rgba(255, 236, 210, 0.98))',
-          border: '1px solid rgba(184, 134, 11, 0.6)',
-          boxShadow: '0 26px 60px rgba(0,0,0,0.35)',
+            'linear-gradient(135deg, rgba(24, 16, 48, 0.96), rgba(76, 29, 149, 0.98))',
+          border: `1px solid ${theme.palette.divider}`,
+          boxShadow: '0 26px 60px rgba(15,23,42,0.95)',
           textAlign: 'center',
         }}
       >
@@ -35,9 +36,9 @@ export const FinalQuote: React.FC<{ quote: string; frame: number; duration: numb
           style={{
             fontSize: '52px',
             fontStyle: 'italic',
-            color: '#8b1a1a',
+            color: theme.palette.secondary.light,
             marginBottom: '24px',
-            textShadow: '0 0 16px rgba(139,0,0,0.6)',
+            textShadow: '0 0 20px rgba(236,72,153,0.9)',
           }}
         >
           “{quote}”

@@ -1,4 +1,5 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, Img } from "remotion";
+import { theme } from "./theme";
 
 export type Student = {
   id: string;
@@ -33,7 +34,7 @@ export const StudentShowcase: React.FC<{
     <AbsoluteFill
       style={{
         padding: "60px 120px",
-        color: "#4a2b1a",
+        color: theme.palette.text.primary,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -88,11 +89,11 @@ export const StudentShowcase: React.FC<{
             <div
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(255, 248, 240, 0.98), rgba(255, 236, 210, 0.98))",
+                  "linear-gradient(135deg, rgba(24, 16, 48, 0.96), rgba(52, 21, 72, 0.98))",
                 borderRadius: "32px",
                 padding: "32px 40px",
-                boxShadow: "0 18px 45px rgba(0,0,0,0.25)",
-                border: "1px solid rgba(184, 134, 11, 0.4)",
+                boxShadow: "0 18px 45px rgba(15,23,42,0.9)",
+                border: "1px solid rgba(129, 140, 248, 0.7)",
                 display: "flex",
                 gap: "28px",
                 alignItems: "center",
@@ -106,9 +107,9 @@ export const StudentShowcase: React.FC<{
                     width: "170px",
                     height: "220px",
                     borderRadius: "24px",
-                    border: "3px solid #b8860b",
+                    border: `3px solid ${theme.palette.primary.main}`,
                     objectFit: "cover",
-                    backgroundColor: "#fdf5e6",
+                    backgroundColor: "#020617",
                   }}
                 />
                 <div
@@ -116,7 +117,7 @@ export const StudentShowcase: React.FC<{
                     position: "absolute",
                     inset: 0,
                     borderRadius: "24px",
-                    boxShadow: "inset 0 0 18px rgba(139, 0, 0, 0.35)",
+                    boxShadow: "inset 0 0 18px rgba(129, 140, 248, 0.7)",
                     pointerEvents: "none",
                   }}
                 />
@@ -127,13 +128,13 @@ export const StudentShowcase: React.FC<{
                   style={{
                     fontSize: "40px",
                     fontWeight: 800,
-                    color: "#7b1b1b",
+                    color: theme.palette.secondary.light,
                     marginBottom: "6px",
                   }}
                 >
                   {stu.name}
                 </div>
-                <div style={{ fontSize: "18px", color: "#a0522d", marginBottom: "16px" }}>
+                <div style={{ fontSize: "18px", color: theme.palette.text.muted, marginBottom: "16px" }}>
                   NO.{stu.profile.studentId} · {stu.class}
                 </div>
                 <div
@@ -145,8 +146,8 @@ export const StudentShowcase: React.FC<{
                     padding: "6px 16px",
                     borderRadius: "999px",
                     background:
-                      "linear-gradient(120deg, rgba(139,0,0,0.9), rgba(184,134,11,0.9))",
-                    color: "#fffaf0",
+                      "linear-gradient(120deg, rgba(124,77,255,0.95), rgba(236,72,153,0.9))",
+                    color: theme.palette.text.primary,
                     marginBottom: "14px",
                   }}
                 >
@@ -154,10 +155,10 @@ export const StudentShowcase: React.FC<{
                   <span style={{ fontWeight: 700 }}>{stu.major}</span>
                 </div>
 
-                <div style={{ fontSize: "16px", color: "#8b4513", marginBottom: "6px" }}>
+                <div style={{ fontSize: "16px", color: theme.palette.text.secondary, marginBottom: "6px" }}>
                   入学时间：{stu.admissionDate}
                 </div>
-                <div style={{ fontSize: "16px", color: "#8b4513", opacity: 0.85 }}>
+                <div style={{ fontSize: "16px", color: theme.palette.text.secondary, opacity: 0.85 }}>
                   生源地：{stu.profile.hometown} · 爱好：{stu.profile.hobby}
                 </div>
 
@@ -165,7 +166,7 @@ export const StudentShowcase: React.FC<{
                   style={{
                     marginTop: "22px",
                     fontSize: "18px",
-                    color: "#7b1b1b",
+                    color: theme.palette.secondary.light,
                     fontStyle: "italic",
                   }}
                 >
@@ -177,12 +178,12 @@ export const StudentShowcase: React.FC<{
             {/* 右侧：成绩计数器 + 关键词 */}
             <div
               style={{
-                background: "rgba(15, 23, 42, 0.82)",
+                background: theme.palette.background.paper,
                 borderRadius: "32px",
                 padding: "30px 32px",
-                border: "1px solid rgba(248, 250, 252, 0.12)",
-                boxShadow: "0 18px 45px rgba(15,23,42,0.8)",
-                color: "#fefce8",
+                border: "1px solid rgba(129, 140, 248, 0.5)",
+                boxShadow: "0 18px 45px rgba(15,23,42,0.9)",
+                color: theme.palette.text.primary,
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
@@ -193,7 +194,7 @@ export const StudentShowcase: React.FC<{
                   style={{
                     fontSize: "22px",
                     letterSpacing: "2px",
-                    color: "#eab308",
+                    color: theme.palette.secondary.main,
                     marginBottom: "10px",
                   }}
                 >
@@ -211,11 +212,11 @@ export const StudentShowcase: React.FC<{
 
                 <div
                   style={{
-                    marginTop: "18px",
-                    width: "100%",
+                    fontSize: "13px",
+                    opacity: 0.8,
                     height: "8px",
                     borderRadius: "999px",
-                    background: "rgba(148, 163, 184, 0.3)",
+                    background: "rgba(30, 64, 175, 0.55)",
                     overflow: "hidden",
                   }}
                 >
@@ -224,8 +225,8 @@ export const StudentShowcase: React.FC<{
                       width: `${Math.min(100, (score / 100) * 100)}%`,
                       height: "100%",
                       background:
-                        "linear-gradient(90deg, #facc15, #f97316, #ef4444)",
-                      boxShadow: "0 0 16px rgba(248, 250, 252, 0.7)",
+                        "linear-gradient(90deg, #7C4DFF, #E040FB, #FF80AB)",
+                      boxShadow: "0 0 16px rgba(224, 64, 251, 0.9)",
                     }}
                   />
                 </div>
@@ -235,7 +236,7 @@ export const StudentShowcase: React.FC<{
                 <div
                   style={{
                     fontSize: "18px",
-                    color: "#e5e7eb",
+                    color: theme.palette.text.secondary,
                     marginBottom: "10px",
                   }}
                 >
@@ -249,9 +250,9 @@ export const StudentShowcase: React.FC<{
                         fontSize: "13px",
                         padding: "6px 12px",
                         borderRadius: "999px",
-                        background: "rgba(30, 64, 175, 0.7)",
-                        border: "1px solid rgba(191, 219, 254, 0.8)",
-                        boxShadow: "0 0 12px rgba(59,130,246,0.6)",
+                        background: "rgba(109, 40, 217, 0.8)",
+                        border: "1px solid rgba(196, 181, 253, 0.95)",
+                        boxShadow: "0 0 12px rgba(129,140,248,0.8)",
                       }}
                     >
                       {f}
@@ -264,7 +265,7 @@ export const StudentShowcase: React.FC<{
                 <div
                   style={{
                     fontSize: "16px",
-                    color: "#e5e7eb",
+                    color: theme.palette.text.secondary,
                     marginBottom: "8px",
                   }}
                 >
@@ -275,7 +276,7 @@ export const StudentShowcase: React.FC<{
                     listStyle: "disc",
                     paddingLeft: "18px",
                     fontSize: "13px",
-                    color: "#e5e7eb",
+                    color: theme.palette.text.secondary,
                     opacity: 0.9,
                   }}
                 >

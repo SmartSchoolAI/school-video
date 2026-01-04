@@ -1,4 +1,5 @@
 import { AbsoluteFill, useCurrentFrame, interpolate, spring } from 'remotion';
+import { theme } from './theme';
 
 const highlights = [
   { title: '省属全日制', desc: '隶属于广东省人力资源和社会保障厅', icon: '🏢' },
@@ -32,16 +33,16 @@ export const SchoolIntro: React.FC<{ frame: number; duration: number }> = ({ fra
       style={{
         opacity,
         padding: '60px 80px',
-        color: '#4a2b1a',
+        color: theme.palette.text.primary,
       }}
     >
       <h2
         style={{
           fontSize: '60px',
           textAlign: 'center',
-          color: '#8b1a1a',
+          color: theme.palette.primary.light,
           marginBottom: '40px',
-          textShadow: '0 0 14px rgba(139, 0, 0, 0.6)',
+          textShadow: '0 0 24px rgba(124, 77, 255, 0.8)',
         }}
       >
         走进高新 · 领航未来
@@ -67,14 +68,14 @@ export const SchoolIntro: React.FC<{ frame: number; duration: number }> = ({ fra
               key={item.title}
               style={{
                 background:
-                  'linear-gradient(135deg, rgba(255, 248, 240, 0.96), rgba(255, 236, 210, 0.96))',
-                backdropFilter: 'blur(20px)',
+                  'linear-gradient(135deg, rgba(24, 16, 48, 0.95), rgba(52, 21, 72, 0.98))',
+                backdropFilter: 'blur(22px)',
                 borderRadius: '26px',
                 padding: '26px',
-                border: '1px solid rgba(184, 134, 11, 0.45)',
+                border: '1px solid rgba(129, 140, 248, 0.6)',
                 transform: `scale(${spr}) translateY(${(1 - spr) * 25}px)`,
                 opacity: spr,
-                boxShadow: '0 14px 32px rgba(0,0,0,0.25)',
+                boxShadow: '0 18px 40px rgba(15, 23, 42, 0.9)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -85,7 +86,7 @@ export const SchoolIntro: React.FC<{ frame: number; duration: number }> = ({ fra
               <h3
                 style={{
                   fontSize: '26px',
-                  color: '#8b1a1a',
+                  color: theme.palette.secondary.light,
                   marginBottom: '8px',
                   letterSpacing: '2px',
                 }}

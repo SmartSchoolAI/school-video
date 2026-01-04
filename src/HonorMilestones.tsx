@@ -1,4 +1,5 @@
 import { AbsoluteFill, useCurrentFrame, interpolate, spring } from 'remotion';
+import { theme } from './theme';
 
 const awards = [
   "全国教育系统先进集体",
@@ -29,16 +30,16 @@ export const HonorMilestones: React.FC<{ frame: number; duration: number }> = ({
       style={{
         opacity,
         padding: '70px 80px',
-        color: '#4a2b1a',
+        color: theme.palette.text.primary,
       }}
     >
       <h2
         style={{
           fontSize: '56px',
-          color: '#8b1a1a',
+          color: theme.palette.primary.light,
           textAlign: 'center',
           marginBottom: '50px',
-          textShadow: '0 0 16px rgba(139, 0, 0, 0.65)',
+          textShadow: '0 0 24px rgba(124, 77, 255, 0.95)',
         }}
       >
         学校荣耀 · 核心优势
@@ -65,14 +66,14 @@ export const HonorMilestones: React.FC<{ frame: number; duration: number }> = ({
               key={i}
               style={{
                 background:
-                  'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 248, 230, 0.96))',
+                  'linear-gradient(135deg, rgba(24, 16, 48, 0.95), rgba(76, 29, 149, 0.98))',
                 padding: '16px 30px',
                 borderRadius: '999px',
-                border: '1px solid rgba(184, 134, 11, 0.5)',
+                border: '1px solid rgba(180, 124, 255, 0.9)',
                 fontSize: '20px',
                 transform: `translateX(${(1 - spr) * 140}px)`,
                 opacity: spr,
-                boxShadow: '0 10px 26px rgba(0, 0, 0, 0.28)',
+                boxShadow: '0 16px 40px rgba(15, 23, 42, 0.95)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
@@ -93,7 +94,7 @@ export const HonorMilestones: React.FC<{ frame: number; duration: number }> = ({
           textAlign: 'center',
           fontSize: '24px',
           fontStyle: 'italic',
-          color: '#8b4513',
+          color: theme.palette.secondary.light,
         }}
       >
         “厚德·强能·进取·创新 —— 以质量树品牌，以品牌创一流”

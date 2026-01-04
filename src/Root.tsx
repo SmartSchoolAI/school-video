@@ -8,6 +8,7 @@ import { FinalQuote } from "./FinalQuote";
 import { CyberBackground } from "./CyberBackground";
 import rawStudents from "./students.json";
 import { StudentShowcase, type Student } from "./StudentShowcase";
+import { theme } from "./theme";
 
 export type AdmissionVideoProps = {
   // 主打一位“明星学生”的详细信息（沿用原有结构）
@@ -33,7 +34,7 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#1a0f08",
+        backgroundColor: theme.palette.background.main,
         fontFamily: "Microsoft YaHei, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
@@ -42,7 +43,7 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
       {/* 背景音乐 */}
       <Audio src={staticFile("welcome_music.mp3")} loop volume={0.6} />
 
-      {/* 梦幻暖金页脚 */}
+      {/* 科技紫 + 淡红页脚 */}
       <div 
         style={{ 
           position: "absolute", 
@@ -52,18 +53,18 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
           justifyContent: "center",
           alignItems: "center",
           gap: "20px",
-          color: "rgba(255, 222, 173, 0.9)",
+          color: theme.palette.text.secondary,
           fontSize: "18px",
           letterSpacing: "3px",
           zIndex: 10,
-          textShadow: "0 0 10px rgba(255, 215, 0, 0.6)",
+          textShadow: "0 0 10px rgba(124, 77, 255, 0.8)",
         }}
       >
         <div
           style={{
             width: "80px",
             height: "1px",
-            background: "linear-gradient(to right, transparent, #f5deb3)",
+            background: `linear-gradient(to right, transparent, ${theme.palette.primary.light})`,
           }}
         />
         {FOOTER_TEXT}
@@ -71,7 +72,7 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
           style={{
             width: "80px",
             height: "1px",
-            background: "linear-gradient(to left, transparent, #f5deb3)",
+            background: `linear-gradient(to left, transparent, ${theme.palette.secondary.main})`,
           }}
         />
       </div>

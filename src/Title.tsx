@@ -1,4 +1,5 @@
 import { AbsoluteFill, useCurrentFrame, interpolate, spring } from 'remotion';
+import { theme } from './theme';
 
 export const Title: React.FC<{ title: string; subtitle?: string; frame: number; duration: number }> = ({
   title,
@@ -49,12 +50,12 @@ export const Title: React.FC<{ title: string; subtitle?: string; frame: number; 
               style={{
                 fontSize: '110px',
                 fontWeight: 900,
-                color: '#fff8e7',
+                color: theme.palette.text.primary,
                 display: 'inline-block',
                 transform: `scale(${charScale}) translateY(${float}px)`,
                 opacity: charOpacity,
                 textShadow:
-                  '0 0 20px rgba(255, 215, 0, 0.85), 0 0 45px rgba(139, 0, 0, 0.65)',
+                  '0 0 24px rgba(124, 77, 255, 0.95), 0 0 60px rgba(244, 143, 177, 0.75)',
                 fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Microsoft YaHei"',
               }}
             >
@@ -70,9 +71,9 @@ export const Title: React.FC<{ title: string; subtitle?: string; frame: number; 
           height: '2px',
           width: '800px',
           background:
-            'linear-gradient(to right, transparent, #facc15, #fee9b2, #f97316, transparent)',
+            'linear-gradient(to right, transparent, #7C4DFF, #E040FB, #FF80AB, transparent)',
           marginTop: '40px',
-          boxShadow: '0 0 28px rgba(250, 204, 21, 0.95)',
+          boxShadow: '0 0 32px rgba(124, 77, 255, 0.95)',
           transform: `scaleX(${scale})`,
         }}
       />
@@ -83,8 +84,8 @@ export const Title: React.FC<{ title: string; subtitle?: string; frame: number; 
             marginTop: '40px',
             fontSize: '32px',
             letterSpacing: '6px',
-            color: '#ffe4c4',
-            textShadow: '0 0 12px rgba(139, 0, 0, 0.7)',
+            color: theme.palette.text.secondary,
+            textShadow: '0 0 14px rgba(236, 72, 153, 0.9)',
           }}
         >
           {subtitle}
