@@ -25,7 +25,7 @@ export const CampusScenery: React.FC = () => {
       <CyberBackground />
 
       {/* 顶部：标题 + 导航 */}
-      <div style={{ position: 'absolute', top: 30, left: 80, right: 80, color: theme.palette.text.primary, zIndex: 10 }}>
+      <div style={{ position: 'absolute', top: 20, left: 80, right: 80, color: theme.palette.text.primary, zIndex: 10 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
           <div>
             <div style={{ fontSize: 22, letterSpacing: 4, color: theme.palette.secondary.main, marginBottom: 6 }}>
