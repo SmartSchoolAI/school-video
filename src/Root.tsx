@@ -90,6 +90,9 @@ const BaseLayout: React.FC<{ children: React.ReactNode; withAudio?: boolean }> =
 
 // 原始完整版本：用于 Remotion Studio 预览（保留完整结构）
 const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
+  const students = rawStudents as unknown as Student[];
+  const autoMajorDetails = (students[1] && students[1].majorDetails) || props.majorDetails;
+
   return (
     <BaseLayout withAudio>
       <Series>
@@ -108,12 +111,12 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
           <SchoolIntro frame={0} duration={fps * 10} />
         </Series.Sequence>
 
-        {/* 3. 核心优势与荣耀 (15–23秒 / 8秒) */}
+        {/* 3. 核心优势与荣耀 */}
         <Series.Sequence durationInFrames={fps * 8}>
           <HonorMilestones frame={0} duration={fps * 8} />
         </Series.Sequence>
 
-        {/* 4. 专业梦想蓝图：主打明星学生 (23–31秒 / 8秒) */}
+        {/* 4. 专业梦想蓝图：电子商务（当前主角专业） */}
         <Series.Sequence durationInFrames={fps * 8}>
           <MajorDetails
             majorDetails={props.majorDetails}
@@ -122,12 +125,26 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
           />
         </Series.Sequence>
 
-        {/* 5. 个人电子档案：主打明星学生档案 (31–41秒 / 10秒) */}
+        {/* 5. 专业梦想蓝图：汽车维修专业介绍 */}
+        <Series.Sequence durationInFrames={fps * 8}>
+          <MajorDetails
+            majorDetails={autoMajorDetails}
+            frame={0}
+            duration={fps * 8}
+          />
+        </Series.Sequence>
+
+        {/* 6. 校园风景独立段落 */}
+        <Series.Sequence durationInFrames={fps * 30}>
+          <CampusScenery />
+        </Series.Sequence>
+
+        {/* 7. 个人电子档案：主打明星学生档案 */}
         <Series.Sequence durationInFrames={fps * 10}>
           <StudentInfo {...props} frame={0} duration={fps * 10} />
         </Series.Sequence>
 
-        {/* 6. 明星学生群像：5位学生轮播卡片 (41–50秒 / 9秒) */}
+        {/* 8. 明星学生群像：5位学生轮播卡片 */}
         <Series.Sequence durationInFrames={fps * 9}>
           <StudentShowcase
             students={props.extraStudents}
@@ -136,7 +153,7 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
           />
         </Series.Sequence>
 
-        {/* 7. 号召行动与结语 (50–55秒 / 5秒) */}
+        {/* 9. 号召行动与结语 */}
         <Series.Sequence durationInFrames={fps * 5}>
           <FinalQuote quote={props.quote} frame={0} duration={fps * 5} />
         </Series.Sequence>
@@ -242,7 +259,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="AdmissionLetter"
         component={AdmissionLetterComp}
-        durationInFrames={fps * 55}
+        durationInFrames={fps * 93}
         fps={fps}
         width={1920}
         height={1080}
