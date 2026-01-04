@@ -75,10 +75,21 @@ export const MajorDetails: React.FC<{
             })}
           </div>
 
-          {/* 右侧：职业发展方向（在左侧卡片结束后、短暂停顿后出现） */}
+          {/* 右侧：职业发展方向（在左侧卡片结束后、短暂停顿后出现，整体包在面板里） */}
           <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
             {currentFrame >= rightStartFrame && (
-              <>
+              <div
+                style={{
+                  flex: 1,
+                  background:
+                    "linear-gradient(135deg, rgba(15,23,42,0.35), rgba(76,29,149,0.7))",
+                  borderRadius: "26px",
+                  padding: "32px 34px",
+                  border: `1px solid ${theme.palette.divider}`,
+                  boxShadow: "0 0 24px rgba(15,23,42,0.9)",
+                  backdropFilter: "blur(14px)",
+                }}
+              >
                 <h3
                   style={{
                     fontSize: "32px",
@@ -137,7 +148,7 @@ export const MajorDetails: React.FC<{
                 >
                   * 该专业连续5年就业率超98%，与300强企业深度合作
                 </div>
-              </>
+              </div>
             )}
           </div>
         </div>

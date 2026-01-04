@@ -317,6 +317,17 @@ export const RemotionRoot: React.FC = () => {
         defaultProps={{ majorDetails: hero.majorDetails }}
       />
 
+      {/* 只包含“汽车维修专业蓝图”的独立片段 */}
+      <Composition
+        id="AdmissionMajorDetailsAuto"
+        component={AdmissionMajorDetailsComp}
+        durationInFrames={fps * 8}
+        fps={fps}
+        width={1920}
+        height={1080}
+        defaultProps={{ majorDetails: students[1].majorDetails }}
+      />
+
       {/* 校园风景展示独立视频（基于 public/01-10.jpg） */}
       <Composition
         id="CampusScenery"
