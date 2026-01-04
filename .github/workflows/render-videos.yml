@@ -1,0 +1,52 @@
+name: Render admission videos
+
+on:
+  push:
+    branches:
+      - main
+    # 只有与视频相关的代码/配置变化才触发
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'tsconfig.json'
+      - 'remotion.config.ts'
+  # 手动触发，方便你在 GitHub 上点一下就重新渲染一轮
+  workflow_dispatch: {}
+
+jobs:
+  render-videos:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install ffmpeg (for Remotion rendering)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build admission videos with Remotion
+        env:
+          NODE_ENV: production
+        run: |
+          mkdir -p out
+          npm run build:videos
+
+      - name: Upload rendered videos as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: admission-videos-${{ github.run_number }}
+          path: out/*.mp4
+          if-no-files-found: error
+
