@@ -28,27 +28,28 @@ export type AdmissionVideoProps = {
 
 const FOOTER_TEXT = "广东省高新技术高级技工学校 | FUTURE SKILLS · BRIGHT FUTURE";
 
-const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
-  const fps = 30;
+const fps = 30;
 
+const BaseLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <AbsoluteFill
       style={{
         backgroundColor: theme.palette.background.main,
-        fontFamily: "Microsoft YaHei, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+        fontFamily:
+          "Microsoft YaHei, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
       <CyberBackground />
-      
+
       {/* 背景音乐 */}
       <Audio src={staticFile("welcome_music.mp3")} loop volume={0.6} />
 
       {/* 科技紫 + 淡红页脚 */}
-      <div 
-        style={{ 
-          position: "absolute", 
-          bottom: "30px", 
-          width: "100%", 
+      <div
+        style={{
+          position: "absolute",
+          bottom: "30px",
+          width: "100%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -77,13 +78,22 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
         />
       </div>
 
+      {children}
+    </AbsoluteFill>
+  );
+};
+
+// 原始完整版本：用于 Remotion Studio 预览（保留完整结构）
+const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
+  return (
+    <BaseLayout>
       <Series>
         {/* 1. 开场：校名与主题 (0–5秒) */}
         <Series.Sequence durationInFrames={fps * 5}>
-          <Title 
+          <Title
             title="广东省高新技术高级技工学校"
             subtitle="未来之星，闪耀启航！"
-            frame={0} 
+            frame={0}
             duration={fps * 5}
           />
         </Series.Sequence>
@@ -100,62 +110,180 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
 
         {/* 4. 专业梦想蓝图：主打明星学生 (23–31秒 / 8秒) */}
         <Series.Sequence durationInFrames={fps * 8}>
-          <MajorDetails majorDetails={props.majorDetails} frame={0} duration={fps * 8} />
+          <MajorDetails
+            majorDetails={props.majorDetails}
+            frame={0}
+            duration={fps * 8}
+          />
         </Series.Sequence>
 
         {/* 5. 个人电子档案：主打明星学生档案 (31–41秒 / 10秒) */}
         <Series.Sequence durationInFrames={fps * 10}>
-          <StudentInfo 
-            {...props}
-            frame={0} 
-            duration={fps * 10}
-          />
+          <StudentInfo {...props} frame={0} duration={fps * 10} />
         </Series.Sequence>
 
         {/* 6. 明星学生群像：5位学生轮播卡片 (41–50秒 / 9秒) */}
         <Series.Sequence durationInFrames={fps * 9}>
-          <StudentShowcase students={props.extraStudents} frame={0} duration={fps * 9} />
+          <StudentShowcase
+            students={props.extraStudents}
+            frame={0}
+            duration={fps * 9}
+          />
         </Series.Sequence>
 
         {/* 7. 号召行动与结语 (50–55秒 / 5秒) */}
         <Series.Sequence durationInFrames={fps * 5}>
-          <FinalQuote 
-            quote={props.quote} 
-            frame={0} 
-            duration={fps * 5} 
+          <FinalQuote quote={props.quote} frame={0} duration={fps * 5} />
+        </Series.Sequence>
+      </Series>
+    </BaseLayout>
+  );
+};
+
+// 优化渲染：只包含“学校固定部分”的 Intro+School 段（0–31 秒）
+const AdmissionLetterIntroComp: React.FC<{ hero: Student }> = ({ hero }) => {
+  return (
+    <BaseLayout>
+      <Series>
+        <Series.Sequence durationInFrames={fps * 5}>
+          <Title
+            title="广东省高新技术高级技工学校"
+            subtitle="未来之星，闪耀启航！"
+            frame={0}
+            duration={fps * 5}
+          />
+        </Series.Sequence>
+
+        <Series.Sequence durationInFrames={fps * 10}>
+          <SchoolIntro frame={0} duration={fps * 10} />
+        </Series.Sequence>
+
+        <Series.Sequence durationInFrames={fps * 8}>
+          <HonorMilestones frame={0} duration={fps * 8} />
+        </Series.Sequence>
+
+        <Series.Sequence durationInFrames={fps * 8}>
+          <MajorDetails
+            majorDetails={hero.majorDetails}
+            frame={0}
+            duration={fps * 8}
           />
         </Series.Sequence>
       </Series>
-    </AbsoluteFill>
+    </BaseLayout>
+  );
+};
+
+// 优化渲染：只包含“学生档案”段（31–41 秒）
+const AdmissionLetterStudentComp: React.FC<AdmissionVideoProps> = (props) => {
+  return (
+    <BaseLayout>
+      <Series>
+        <Series.Sequence durationInFrames={fps * 10}>
+          <StudentInfo {...props} frame={0} duration={fps * 10} />
+        </Series.Sequence>
+      </Series>
+    </BaseLayout>
+  );
+};
+
+// 优化渲染：只包含“明星群像 + 结语”段（41–55 秒）
+const AdmissionLetterOutroComp: React.FC<{ extraStudents: Student[]; quote: string }> = ({
+  extraStudents,
+  quote,
+}) => {
+  return (
+    <BaseLayout>
+      <Series>
+        <Series.Sequence durationInFrames={fps * 9}>
+          <StudentShowcase students={extraStudents} frame={0} duration={fps * 9} />
+        </Series.Sequence>
+
+        <Series.Sequence durationInFrames={fps * 5}>
+          <FinalQuote quote={quote} frame={0} duration={fps * 5} />
+        </Series.Sequence>
+      </Series>
+    </BaseLayout>
   );
 };
 
 export const RemotionRoot: React.FC = () => {
-  const students = rawStudents as Student[];
+  // JSON 中的 skills 字段结构会被 TypeScript 推断为联合类型，这里通过 unknown 中转
+  // 明确告诉编译器：该数组在运行时符合 Student 结构
+  const students = rawStudents as unknown as Student[];
   const hero = students[0];
 
+  const extraStudents = students.slice(0, 5);
+
   return (
-    <Composition
-      id="AdmissionLetter"
-      component={AdmissionLetterComp}
-      durationInFrames={30 * 55} // 总计约55秒
-      fps={30}
-      width={1920}
-      height={1080}
-      defaultProps={{
-        name: hero.name,
-        major: hero.major,
-        class: hero.class,
-        admissionDate: hero.admissionDate,
-        quote: hero.quote,
-        idPhoto: hero.idPhoto,
-        profile: hero.profile,
-        grades: hero.grades,
-        skills: hero.skills,
-        majorDetails: hero.majorDetails,
-        // 5 位明星学生用于轮播展示
-        extraStudents: students.slice(0, 5),
-      }}
-    />
+    <>
+      {/* 原始完整版本，用于 Studio 预览或全量渲染 */}
+      <Composition
+        id="AdmissionLetter"
+        component={AdmissionLetterComp}
+        durationInFrames={fps * 55}
+        fps={fps}
+        width={1920}
+        height={1080}
+        defaultProps={{
+          name: hero.name,
+          major: hero.major,
+          class: hero.class,
+          admissionDate: hero.admissionDate,
+          quote: hero.quote,
+          idPhoto: hero.idPhoto,
+          profile: hero.profile,
+          grades: hero.grades,
+          skills: hero.skills,
+          majorDetails: hero.majorDetails,
+          extraStudents,
+        }}
+      />
+
+      {/* 分段渲染用的 Intro 片段（0–31 秒） */}
+      <Composition
+        id="AdmissionLetterIntro"
+        component={AdmissionLetterIntroComp}
+        durationInFrames={fps * 31}
+        fps={fps}
+        width={1920}
+        height={1080}
+        defaultProps={{ hero }}
+      />
+
+      {/* 分段渲染用的 Student 片段（31–41 秒） */}
+      <Composition
+        id="AdmissionLetterStudent"
+        component={AdmissionLetterStudentComp}
+        durationInFrames={fps * 10}
+        fps={fps}
+        width={1920}
+        height={1080}
+        defaultProps={{
+          name: hero.name,
+          major: hero.major,
+          class: hero.class,
+          admissionDate: hero.admissionDate,
+          quote: hero.quote,
+          idPhoto: hero.idPhoto,
+          profile: hero.profile,
+          grades: hero.grades,
+          skills: hero.skills,
+          majorDetails: hero.majorDetails,
+          extraStudents,
+        }}
+      />
+
+      {/* 分段渲染用的 Outro 片段（41–55 秒） */}
+      <Composition
+        id="AdmissionLetterOutro"
+        component={AdmissionLetterOutroComp}
+        durationInFrames={fps * 14}
+        fps={fps}
+        width={1920}
+        height={1080}
+        defaultProps={{ extraStudents, quote: hero.quote }}
+      />
+    </>
   );
 };

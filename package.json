@@ -34,7 +34,8 @@
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc",
     "start": "remotion start",
-    "build:videos": "ts-node src/render-videos.ts"
+    "build:videos": "ts-node src/render-videos.ts",
+    "build:videos:fast": "ts-node src/render-videos-fast.ts"
   },
   "sideEffects": [
     "*.css"
