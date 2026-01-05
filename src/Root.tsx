@@ -7,7 +7,7 @@ import { MajorDetails } from "./MajorDetails";
 import { FinalQuote } from "./FinalQuote";
 import { CyberBackground } from "./CyberBackground";
 import rawStudents from "./students.json";
-import { StudentShowcase, type Student } from "./StudentShowcase";
+import { type Student } from "./StudentShowcase";
 import { theme } from "./theme";
 import { CampusScenery } from "./CampusScenery";
 
@@ -93,7 +93,7 @@ const BaseLayout: React.FC<{
 };
 
 // 原始完整版本：用于 Remotion Studio 预览（保留完整结构）
-const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
+const WholeVideo: React.FC<AdmissionVideoProps> = (props) => {
   const students = rawStudents as unknown as Student[];
   const autoMajorDetails =
     (students[1] && students[1].majorDetails) || props.majorDetails;
@@ -137,37 +137,6 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
         {/* 9. 号召行动与结语 */}
         <Series.Sequence durationInFrames={fps * 5}>
           <FinalQuote quote={props.quote} frame={0} duration={fps * 5} />
-        </Series.Sequence>
-      </Series>
-    </BaseLayout>
-  );
-};
-
-// 优化渲染：只包含“学校固定部分”的 Intro+School 段（0–31 秒）
-const AdmissionLetterIntroComp: React.FC<{ hero: Student }> = ({ hero }) => {
-  return (
-    <BaseLayout withAudio={false}>
-      <Series>
-        <Series.Sequence durationInFrames={fps * 5}>
-          <Cover
-            title="广东省高新技术高级技工学校"
-            subtitle="未来之星，闪耀启航！"
-            frame={0}
-            duration={fps * 5}
-          />
-        </Series.Sequence>
-        <Series.Sequence durationInFrames={fps * 10}>
-          <Intro frame={0} duration={fps * 10} />
-        </Series.Sequence>
-        <Series.Sequence durationInFrames={fps * 8}>
-          <HonorMilestones frame={0} duration={fps * 8} />
-        </Series.Sequence>
-        <Series.Sequence durationInFrames={fps * 8}>
-          <MajorDetails
-            majorDetails={hero.majorDetails}
-            frame={0}
-            duration={fps * 8}
-          />
         </Series.Sequence>
       </Series>
     </BaseLayout>
@@ -218,25 +187,6 @@ const AdmissionIntroHonorComp: React.FC = () => {
   );
 };
 
-// Intro 拆分：仅 MajorDetails 页面
-const AdmissionIntroMajorComp: React.FC<{
-  majorDetails: AdmissionVideoProps["majorDetails"];
-}> = ({ majorDetails }) => {
-  return (
-    <BaseLayout withAudio={false}>
-      <Series>
-        <Series.Sequence durationInFrames={fps * 8}>
-          <MajorDetails
-            majorDetails={majorDetails}
-            frame={0}
-            duration={fps * 8}
-          />
-        </Series.Sequence>
-      </Series>
-    </BaseLayout>
-  );
-};
-
 // 优化渲染：只包含“学生档案”段（31–41 秒）
 const AdmissionLetterStudentComp: React.FC<AdmissionVideoProps> = (props) => {
   return (
@@ -270,21 +220,13 @@ const AdmissionMajorDetailsComp: React.FC<{
   );
 };
 
-// 优化渲染：只包含“明星群像 + 结语”段（41–55 秒）
+// 优化渲染：只包含“结语”段（41–55 秒）
 const AdmissionLetterOutroComp: React.FC<{
-  extraStudents: Student[];
   quote: string;
-}> = ({ extraStudents, quote }) => {
+}> = ({ quote }) => {
   return (
     <BaseLayout withAudio={false}>
       <Series>
-        <Series.Sequence durationInFrames={fps * 9}>
-          <StudentShowcase
-            students={extraStudents}
-            frame={0}
-            duration={fps * 9}
-          />
-        </Series.Sequence>
         <Series.Sequence durationInFrames={fps * 5}>
           <FinalQuote quote={quote} frame={0} duration={fps * 5} />
         </Series.Sequence>
@@ -298,7 +240,6 @@ export const RemotionRoot: React.FC = () => {
   // 明确告诉编译器：该数组在运行时符合 Student 结构
   const students = rawStudents as unknown as Student[];
   const hero = students[0];
-
   const extraStudents = students.slice(0, 5);
 
   return (
@@ -306,8 +247,8 @@ export const RemotionRoot: React.FC = () => {
       {/* 原始完整版本，用于 Studio 预览或全量渲染 */}
       <Composition
         id="0-WholeVideo"
-        component={AdmissionLetterComp}
-        durationInFrames={2715}
+        component={WholeVideo}
+        durationInFrames={2205}
         fps={fps}
         width={1080}
         height={1920}
@@ -379,19 +320,9 @@ export const RemotionRoot: React.FC = () => {
           extraStudents,
         }}
       />
-      {/* 分段渲染用的 Outro 片段（41–55 秒） */}
-      <Composition
-        id="10-FinalQuote"
-        component={AdmissionLetterOutroComp}
-        durationInFrames={fps * 14}
-        fps={fps}
-        width={1080}
-        height={1920}
-        defaultProps={{ extraStudents, quote: hero.quote }}
-      />
       {/* 只包含“汽车维修专业蓝图”的独立片段 */}
       <Composition
-        id="5-Major-汽车"
+        id="5-Major-RepairCar"
         component={AdmissionMajorDetailsComp}
         durationInFrames={fps * 8}
         fps={fps}
@@ -408,6 +339,16 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
         defaultProps={{}}
+      />
+      {/* 分段渲染用的 Outro 片段（41–44 秒） */}
+      <Composition
+        id="10-FinalQuote"
+        component={AdmissionLetterOutroComp}
+        durationInFrames={fps * 3}
+        fps={fps}
+        width={1080}
+        height={1920}
+        defaultProps={{ quote: hero.quote }}
       />
     </>
   );

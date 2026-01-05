@@ -15,12 +15,22 @@ export const FinalQuote: React.FC<{ quote: string; frame: number; duration: numb
   return (
     <AbsoluteFill
       style={{
-        justifyContent: 'center',
-        alignItems: 'center',
         opacity,
+        padding: '0px 40px 0px 40px',
         color: theme.palette.text.primary,
       }}
     >
+      <h2
+        style={{
+          fontSize: '70px',
+          textAlign: 'center',
+          color: theme.palette.primary.light,
+          marginBottom: '48px',
+          textShadow: '0 0 24px rgba(124, 77, 255, 0.8)',
+        }}
+      >
+        欢迎报考 · 广东高新
+      </h2>
       <div 
         style={{
           padding: '40px 32px',
@@ -30,44 +40,43 @@ export const FinalQuote: React.FC<{ quote: string; frame: number; duration: numb
           border: `1px solid ${theme.palette.divider}`,
           boxShadow: '0 26px 60px rgba(15,23,42,0.95)',
           textAlign: 'center',
-          maxWidth: 900,
-          margin: '0 24px',
+          margin: '0 20px',
         }}
       >
         <h2
           style={{
-            fontSize: '52px',
+            fontSize: '68px',
             fontStyle: 'italic',
             color: theme.palette.secondary.light,
             marginBottom: '24px',
             textShadow: '0 0 20px rgba(236,72,153,0.9)',
           }}
         >
-          “{quote}”
+          “读高新高技, 学高新技术”
         </h2>
         <div
           style={{
-            fontSize: '24px',
+            fontSize: '58px',
             opacity: 0.9,
             letterSpacing: '4px',
             marginBottom: '26px',
           }}
         >
-          梦想有多大，舞台就有多大
+          厚德,强能,进取,创新
         </div>
 
         <div
           style={{
             marginTop: '10px',
-            fontSize: '18px',
+            fontSize: '48px',
             lineHeight: 1.8,
           }}
         >
           <div>立即报名 · 开启你的技能人生！</div>
-          <div style={{ marginTop: '10px', fontSize: '16px', opacity: 0.85 }}>
+          <div style={{ marginTop: '10px', fontSize: '48px', opacity: 0.85 }}>
             招生热线：020-XXXX XXXX ｜ 官网：www.gdgxjg.edu.cn
           </div>
-          <div style={{ marginTop: '4px', fontSize: '14px', opacity: 0.75 }}>
+          <div style={{ marginTop: '4px', fontSize: '48px', opacity: 0.75 }}>
             （以上联系方式示意，可替换为真实电话 / 网址 / 二维码）
           </div>
         </div>

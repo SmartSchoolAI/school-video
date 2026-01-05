@@ -12,7 +12,7 @@ const start = async () => {
   const compositionId = 'AdmissionLetter';
 
   for (const student of students) {
-    console.log(`正在为 ${student.name} 生成【超高清・科技感】录取通知书视频...`);
+    console.log(`正在为 ${student.major} 生成【超高清・科技感】学校宣传视频...`);
 
     const startTime = Date.now();
 
@@ -29,7 +29,7 @@ const start = async () => {
     await renderMedia({
       composition,
       serveUrl: bundled,
-      outputLocation: `out/${student.id}-${student.major}-${student.name}.mp4`,
+      outputLocation: `out/${student.major}.mp4`,
       inputProps,
       codec: 'h264',
     });
@@ -37,7 +37,7 @@ const start = async () => {
     const endTime = Date.now();
     const seconds = ((endTime - startTime) / 1000).toFixed(1);
 
-    console.log(`✅ 视频已生成: out/${student.id}-${student.major}-${student.name}.mp4`);
+    console.log(`✅ 视频已生成: out/${student.major}.mp4`);
     console.log(`⏱ 本次视频生成耗时 ${seconds} 秒`);
   }
 };
