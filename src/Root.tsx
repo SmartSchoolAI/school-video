@@ -7,7 +7,7 @@ import { Cover } from "./Cover";
 import { Intro } from "./Intro";
 import { Honor } from "./Honor";
 import { StudentInfo } from "./StudentInfo";
-import { Majors } from "./Majors";
+import { MajorsList } from "./MajorsList";
 import { FinalQuote } from "./FinalQuote";
 import { Background } from "./Background";
 import { Campus } from "./Campus";
@@ -58,7 +58,7 @@ const RenderEngine = ({ sectionId, duration, data }: { sectionId: string, durati
     "Cover": <Cover data={videoConfig['Cover']} frame={0} duration={duration} />,
     "Intro": <Intro frame={0} duration={duration} />,
     "Honor": <Honor frame={0} duration={duration} />,
-    "Majors": <Majors majors={currentMajors} frame={0} duration={duration} />,
+    "Majors": <MajorsList majors={currentMajors} frame={0} duration={duration} />,
     "Campus": <Campus />,
     "StudentInfo": <StudentInfo {...hero} frame={0} duration={duration} />,
     "FinalQuote": <FinalQuote frame={0} duration={duration} />
@@ -97,7 +97,7 @@ const SingleSection: React.FC<{ section: any; hero: any; currentMajors: any }> =
 // --- Remotion 根入口 ---
 export const RemotionRoot: React.FC = () => {
   const hero = (rawStudents as any[])[0];
-  const currentMajors = majorsData[0];
+  const currentMajors = majorsData;
   
   // 从 JSON 自动计算总时长
   const totalDuration = sections.reduce((acc, s) => acc + s.durationFrames, 0);
