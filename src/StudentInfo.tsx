@@ -1,4 +1,4 @@
-import { AbsoluteFill, useCurrentFrame, interpolate, spring, Img } from "remotion";
+import { AbsoluteFill, useCurrentFrame, interpolate, spring, Img, staticFile } from "remotion";
 import { theme } from "./theme";
 
 export const StudentInfo: React.FC<{
@@ -90,7 +90,7 @@ export const StudentInfo: React.FC<{
                 }}
               >
                 <Img
-                  src={idPhoto}
+                  src={staticFile("Student.png")}
                   style={{
                     width: "100%",
                     height: "100%",
