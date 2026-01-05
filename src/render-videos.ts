@@ -9,7 +9,7 @@ const start = async () => {
     entryPoint: path.join(process.cwd(), 'src/index.ts'),
   });
 
-  const compositionId = 'AdmissionLetter';
+  const compositionId = '0-WholeVideo';
 
   for (const student of students) {
     console.log(`正在为 ${student.major} 生成【超高清・科技感】学校宣传视频...`);
