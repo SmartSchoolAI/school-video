@@ -1,7 +1,7 @@
 import { AbsoluteFill, useCurrentFrame, interpolate, spring } from 'remotion';
 import { theme } from './theme';
 
-export const Title: React.FC<{ title: string; subtitle?: string; frame: number; duration: number }> = ({
+export const Cover: React.FC<{ title: string; subtitle?: string; frame: number; duration: number }> = ({
   title,
   subtitle,
   frame,
@@ -92,7 +92,7 @@ export const Title: React.FC<{ title: string; subtitle?: string; frame: number; 
         <div
           style={{
             marginTop: '40px',
-            fontSize: '32px',
+            fontSize: '48px',
             letterSpacing: '6px',
             color: theme.palette.text.secondary,
             textShadow: '0 0 14px rgba(236, 72, 153, 0.9)',

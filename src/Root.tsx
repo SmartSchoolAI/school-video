@@ -1,5 +1,5 @@
 import { Composition, AbsoluteFill, Series, Audio, staticFile } from "remotion";
-import { Title } from "./Title";
+import { Cover } from "./Cover";
 import { SchoolIntro } from "./SchoolIntro";
 import { HonorMilestones } from "./HonorMilestones";
 import { StudentInfo } from "./StudentInfo";
@@ -22,33 +22,37 @@ export type AdmissionVideoProps = {
   profile: { studentId: string; hometown: string; hobby: string };
   grades: { subject: string; score: number }[];
   skills: Record<string, number>;
-  majorDetails: { title: string; features: string[]; motto: string; future: string[] };
+  majorDetails: {
+    title: string;
+    features: string[];
+    motto: string;
+    future: string[];
+  };
   // 额外的明星学生，用于 30–45 秒“个性化高潮段落”
   extraStudents: Student[];
 };
 
-const FOOTER_TEXT = "广东省高新技术高级技工学校 | FUTURE SKILLS · BRIGHT FUTURE";
+const FOOTER_TEXT = "广东省高新技术高级技工学校 | FUTURE SKILLS";
 
 const fps = 30;
 
-const BaseLayout: React.FC<{ children: React.ReactNode; withAudio?: boolean }> = ({
-  children,
-  withAudio = true,
-}) => {
+const mp3_audio_path = "welcome_music.mp3"
+
+const BaseLayout: React.FC<{
+  children: React.ReactNode;
+  withAudio?: boolean;
+}> = ({ children, withAudio = true }) => {
   return (
     <AbsoluteFill
-      style={{
-        backgroundColor: theme.palette.background.main,
-        // 优先使用支持中日韩的字体，避免在 CI（Ubuntu）环境中中文变成方框
-        fontFamily:
-          "'Noto Sans CJK SC', 'WenQuanYi Micro Hei', 'Microsoft YaHei', system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+      style={{ 
+        fontFamily: "'Noto Sans CJK SC', 'WenQuanYi Micro Hei', 'Microsoft YaHei', system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
       <CyberBackground />
-
       {/* 背景音乐（可选，分段渲染时关闭，避免拼接后重复播放） */}
-      {withAudio && <Audio src={staticFile("welcome_music.mp3")} loop volume={0.6} />}
-
+      {withAudio && (
+        <Audio src={staticFile(mp3_audio_path)} loop volume={0.6} />
+      )}
       {/* 科技紫 + 淡红页脚 */}
       <div
         style={{
@@ -60,7 +64,7 @@ const BaseLayout: React.FC<{ children: React.ReactNode; withAudio?: boolean }> =
           alignItems: "center",
           gap: "20px",
           color: theme.palette.text.secondary,
-          fontSize: "18px",
+          fontSize: "32px",
           letterSpacing: "3px",
           zIndex: 10,
           textShadow: "0 0 10px rgba(124, 77, 255, 0.8)",
@@ -82,7 +86,6 @@ const BaseLayout: React.FC<{ children: React.ReactNode; withAudio?: boolean }> =
           }}
         />
       </div>
-
       {children}
     </AbsoluteFill>
   );
@@ -91,31 +94,29 @@ const BaseLayout: React.FC<{ children: React.ReactNode; withAudio?: boolean }> =
 // 原始完整版本：用于 Remotion Studio 预览（保留完整结构）
 const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
   const students = rawStudents as unknown as Student[];
-  const autoMajorDetails = (students[1] && students[1].majorDetails) || props.majorDetails;
+  const autoMajorDetails =
+    (students[1] && students[1].majorDetails) || props.majorDetails;
 
   return (
     <BaseLayout withAudio>
       <Series>
         {/* 1. 开场：校名与主题 (0–5秒) */}
         <Series.Sequence durationInFrames={fps * 5}>
-          <Title
+          <Cover
             title="广东省高新技术高级技工学校"
             subtitle="未来之星，闪耀启航！"
             frame={0}
             duration={fps * 5}
           />
         </Series.Sequence>
-
         {/* 2. 校园概览：环境与设施 (5–15秒 / 10秒) */}
         <Series.Sequence durationInFrames={fps * 10}>
           <SchoolIntro frame={0} duration={fps * 10} />
         </Series.Sequence>
-
         {/* 3. 核心优势与荣耀 */}
         <Series.Sequence durationInFrames={fps * 8}>
           <HonorMilestones frame={0} duration={fps * 8} />
         </Series.Sequence>
-
         {/* 4. 专业梦想蓝图：电子商务（当前主角专业） */}
         <Series.Sequence durationInFrames={fps * 8}>
           <MajorDetails
@@ -124,7 +125,6 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
             duration={fps * 8}
           />
         </Series.Sequence>
-
         {/* 5. 专业梦想蓝图：汽车维修专业介绍 */}
         <Series.Sequence durationInFrames={fps * 8}>
           <MajorDetails
@@ -133,17 +133,14 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
             duration={fps * 8}
           />
         </Series.Sequence>
-
         {/* 6. 校园风景独立段落 */}
         <Series.Sequence durationInFrames={825}>
           <CampusScenery />
         </Series.Sequence>
-
         {/* 7. 个人电子档案：主打明星学生档案 */}
         <Series.Sequence durationInFrames={fps * 10}>
           <StudentInfo {...props} frame={0} duration={fps * 10} />
         </Series.Sequence>
-
         {/* 8. 明星学生群像：5位学生轮播卡片 */}
         <Series.Sequence durationInFrames={fps * 9}>
           <StudentShowcase
@@ -152,7 +149,6 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
             duration={fps * 9}
           />
         </Series.Sequence>
-
         {/* 9. 号召行动与结语 */}
         <Series.Sequence durationInFrames={fps * 5}>
           <FinalQuote quote={props.quote} frame={0} duration={fps * 5} />
@@ -175,18 +171,78 @@ const AdmissionLetterIntroComp: React.FC<{ hero: Student }> = ({ hero }) => {
             duration={fps * 5}
           />
         </Series.Sequence>
-
         <Series.Sequence durationInFrames={fps * 10}>
           <SchoolIntro frame={0} duration={fps * 10} />
         </Series.Sequence>
-
         <Series.Sequence durationInFrames={fps * 8}>
           <HonorMilestones frame={0} duration={fps * 8} />
         </Series.Sequence>
-
         <Series.Sequence durationInFrames={fps * 8}>
           <MajorDetails
             majorDetails={hero.majorDetails}
+            frame={0}
+            duration={fps * 8}
+          />
+        </Series.Sequence>
+      </Series>
+    </BaseLayout>
+  );
+};
+
+// Intro 拆分：仅开场 Title 页面
+const AdmissionIntroTitleComp: React.FC = () => {
+  return (
+    <BaseLayout withAudio={false}>
+      <Series>
+        <Series.Sequence durationInFrames={fps * 5}>
+          <Title
+            title="广东省高新技术高级技工学校"
+            subtitle="未来之星，闪耀启航！"
+            frame={0}
+            duration={fps * 5}
+          />
+        </Series.Sequence>
+      </Series>
+    </BaseLayout>
+  );
+};
+
+// Intro 拆分：仅 SchoolIntro 页面
+const AdmissionIntroSchoolComp: React.FC = () => {
+  return (
+    <BaseLayout withAudio={false}>
+      <Series>
+        <Series.Sequence durationInFrames={fps * 10}>
+          <SchoolIntro frame={0} duration={fps * 10} />
+        </Series.Sequence>
+      </Series>
+    </BaseLayout>
+  );
+};
+
+// Intro 拆分：仅 HonorMilestones 页面
+const AdmissionIntroHonorComp: React.FC = () => {
+  return (
+    <BaseLayout withAudio={false}>
+      <Series>
+        <Series.Sequence durationInFrames={fps * 8}>
+          <HonorMilestones frame={0} duration={fps * 8} />
+        </Series.Sequence>
+      </Series>
+    </BaseLayout>
+  );
+};
+
+// Intro 拆分：仅 MajorDetails 页面
+const AdmissionIntroMajorComp: React.FC<{
+  majorDetails: AdmissionVideoProps["majorDetails"];
+}> = ({ majorDetails }) => {
+  return (
+    <BaseLayout withAudio={false}>
+      <Series>
+        <Series.Sequence durationInFrames={fps * 8}>
+          <MajorDetails
+            majorDetails={majorDetails}
             frame={0}
             duration={fps * 8}
           />
@@ -211,14 +267,18 @@ const AdmissionLetterStudentComp: React.FC<AdmissionVideoProps> = (props) => {
 
 // 新增：只包含“专业蓝图（电子商务等专业介绍）”的专业片段
 // 方便单独渲染某个专业介绍，例如 “电子商务 (现代商务方向)”
-const AdmissionMajorDetailsComp: React.FC<{ majorDetails: AdmissionVideoProps["majorDetails"] }> = ({
-  majorDetails,
-}) => {
+const AdmissionMajorDetailsComp: React.FC<{
+  majorDetails: AdmissionVideoProps["majorDetails"];
+}> = ({ majorDetails }) => {
   return (
     <BaseLayout withAudio={false}>
       <Series>
         <Series.Sequence durationInFrames={fps * 8}>
-          <MajorDetails majorDetails={majorDetails} frame={0} duration={fps * 8} />
+          <MajorDetails
+            majorDetails={majorDetails}
+            frame={0}
+            duration={fps * 8}
+          />
         </Series.Sequence>
       </Series>
     </BaseLayout>
@@ -226,17 +286,20 @@ const AdmissionMajorDetailsComp: React.FC<{ majorDetails: AdmissionVideoProps["m
 };
 
 // 优化渲染：只包含“明星群像 + 结语”段（41–55 秒）
-const AdmissionLetterOutroComp: React.FC<{ extraStudents: Student[]; quote: string }> = ({
-  extraStudents,
-  quote,
-}) => {
+const AdmissionLetterOutroComp: React.FC<{
+  extraStudents: Student[];
+  quote: string;
+}> = ({ extraStudents, quote }) => {
   return (
     <BaseLayout withAudio={false}>
       <Series>
         <Series.Sequence durationInFrames={fps * 9}>
-          <StudentShowcase students={extraStudents} frame={0} duration={fps * 9} />
+          <StudentShowcase
+            students={extraStudents}
+            frame={0}
+            duration={fps * 9}
+          />
         </Series.Sequence>
-
         <Series.Sequence durationInFrames={fps * 5}>
           <FinalQuote quote={quote} frame={0} duration={fps * 5} />
         </Series.Sequence>
@@ -257,7 +320,7 @@ export const RemotionRoot: React.FC = () => {
     <>
       {/* 原始完整版本，用于 Studio 预览或全量渲染 */}
       <Composition
-        id="AdmissionLetter"
+        id="0-WholeVideo"
         component={AdmissionLetterComp}
         durationInFrames={2715}
         fps={fps}
@@ -277,21 +340,41 @@ export const RemotionRoot: React.FC = () => {
           extraStudents,
         }}
       />
-
       {/* 分段渲染用的 Intro 片段（0–31 秒） */}
+      {/* Intro 拆分：仅 Title 页面 */}
       <Composition
-        id="AdmissionLetterIntro"
-        component={AdmissionLetterIntroComp}
-        durationInFrames={fps * 31}
+        id="1-Cover"
+        component={AdmissionIntroTitleComp}
+        durationInFrames={fps * 5}
         fps={fps}
         width={1080}
         height={1920}
-        defaultProps={{ hero }}
+        defaultProps={{}}
       />
-
+      {/* Intro 拆分：仅 SchoolIntro 页面 */}
+      <Composition
+        id="2-Intro"
+        component={AdmissionIntroSchoolComp}
+        durationInFrames={fps * 10}
+        fps={fps}
+        width={1080}
+        height={1920}
+        defaultProps={{}}
+      />
+      {/* Intro 拆分：仅 HonorMilestones 页面 */}
+      <Composition
+        id="3-Honor"
+        component={AdmissionIntroHonorComp}
+        durationInFrames={fps * 8}
+        fps={fps}
+        width={1080}
+        height={1920}
+        defaultProps={{}}
+      />
+      {/* Intro 拆分：仅 MajorDetails 页面 */}
       {/* 分段渲染用的 Student 片段（31–41 秒） */}
       <Composition
-        id="AdmissionLetterStudent"
+        id="7-StudentInfo"
         component={AdmissionLetterStudentComp}
         durationInFrames={fps * 10}
         fps={fps}
@@ -311,10 +394,9 @@ export const RemotionRoot: React.FC = () => {
           extraStudents,
         }}
       />
-
       {/* 分段渲染用的 Outro 片段（41–55 秒） */}
       <Composition
-        id="AdmissionLetterOutro"
+        id="10-End"
         component={AdmissionLetterOutroComp}
         durationInFrames={fps * 14}
         fps={fps}
@@ -322,10 +404,9 @@ export const RemotionRoot: React.FC = () => {
         height={1920}
         defaultProps={{ extraStudents, quote: hero.quote }}
       />
-
       {/* 只包含“汽车维修专业蓝图”的独立片段 */}
       <Composition
-        id="AdmissionMajorDetailsAuto"
+        id="5-Major-汽车"
         component={AdmissionMajorDetailsComp}
         durationInFrames={fps * 8}
         fps={fps}
@@ -333,10 +414,9 @@ export const RemotionRoot: React.FC = () => {
         height={1920}
         defaultProps={{ majorDetails: students[1].majorDetails }}
       />
-
       {/* 校园风景展示独立视频（基于 public/01-10.jpg） */}
       <Composition
-        id="CampusScenery"
+        id="6-Campus"
         component={CampusScenery}
         durationInFrames={825}
         fps={fps}

@@ -133,8 +133,7 @@ export const CyberBackground: React.FC<{ imgSrc?: string }> = ({ imgSrc }) => {
       <div style={{ position: 'absolute', right: '60px', top: '0', bottom: '0', width: '1px', background: `linear-gradient(to bottom, transparent, ${theme.palette.secondary.main}, transparent)`, opacity: 0.45 }} />
 
       <svg width="1920" height="1080" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
-        <line x1="0" y1="100" x2={`${interpolate(lineProgress, [0, 1], [0, 1920])}`} y2="100" stroke={theme.palette.primary.light} strokeWidth="2" opacity="0.55" />
-        <line x1="1920" y1="980" x2={`${1920 - interpolate(lineProgress, [0, 1], [0, 1920])}`} y2="980" stroke={theme.palette.secondary.main} strokeWidth="2" opacity="0.55" />
+        <line x1="0" y1="110" x2={`${interpolate(lineProgress, [0, 1], [0, 1920])}`} y2="110" stroke={theme.palette.primary.light} strokeWidth="2" opacity="0.55" />
       </svg>
     </AbsoluteFill>
   );
