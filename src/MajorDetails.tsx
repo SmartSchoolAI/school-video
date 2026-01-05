@@ -29,7 +29,7 @@ export const MajorDetails: React.FC<{
     <AbsoluteFill
       style={{
         opacity,
-        padding: "80px 24px 60px",
+        padding: "65px 24px 60px",
         color: theme.palette.text.primary,
         display: "flex",
         justifyContent: "center",
@@ -49,15 +49,6 @@ export const MajorDetails: React.FC<{
             gap: "16px",
           }}
         >
-          <span
-            style={{
-              color: theme.palette.secondary.main,
-              fontSize: "32px",
-              letterSpacing: "4px",
-            }}
-          >
-            专业蓝图 / MAJOR BLUEPRINT
-          </span>
           <h2
             style={{
               fontSize: "64px",
@@ -70,21 +61,22 @@ export const MajorDetails: React.FC<{
           </h2>
           <div
             style={{
-              fontSize: "26px",
+              fontSize: "38px",
               color: theme.palette.secondary.light,
               fontStyle: "italic",
               textShadow: "0 0 16px rgba(244, 143, 177, 0.8)",
-              maxWidth: 820,
             }}
           >
             “{majorDetails.motto}”
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "32px", flexGrow: 1 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "38px", flexGrow: 1 }}>
           {/* 上：核心特色（始终显示） */}
           <div>
-            <h3 style={{ fontSize: "32px", marginBottom: "30px", color: theme.palette.primary.light, borderLeft: `5px solid ${theme.palette.primary.light}`, paddingLeft: "15px" }}>核心技能实训 ▷</h3>
+            <h3 style={{ fontSize: "48px", marginTop: "5px", marginBottom: "26px", color: theme.palette.primary.light, borderLeft: `5px solid ${theme.palette.primary.light}`, paddingLeft: "15px" }}>
+              核心技能实训 ▷
+            </h3>
             {majorDetails.features.map((f, i) => {
                const spr = spring({
                 frame: currentFrame - (frame + leftBaseOffset + i * itemInterval),
@@ -99,7 +91,7 @@ export const MajorDetails: React.FC<{
                     padding: "25px 40px", 
                     marginBottom: "20px", 
                     borderRadius: "15px", 
-                    fontSize: "28px",
+                    fontSize: "38px",
                     borderLeft: `5px solid ${theme.palette.primary.main}`,
                     transform: `translateX(${(1-spr)*100}px)` ,
                     opacity: spr,
@@ -111,7 +103,7 @@ export const MajorDetails: React.FC<{
                     border: "1px solid rgba(248,250,252,0.12)",
                   }}
                 >
-                  <span style={{ fontSize: "30px", color: theme.palette.secondary.main }}>🔹</span> {f}
+                  <span style={{ fontSize: "48px", color: theme.palette.secondary.main }}>🔹</span> {f}
                 </div>
               );
             })}
@@ -123,8 +115,7 @@ export const MajorDetails: React.FC<{
               <div
                 style={{
                   flex: 1,
-                  background:
-                    "linear-gradient(135deg, rgba(15,23,42,0.35), rgba(76,29,149,0.7))",
+                  background: "linear-gradient(135deg, rgba(15,23,42,0.35), rgba(76,29,149,0.7))",
                   borderRadius: "26px",
                   padding: "32px 34px",
                   border: `1px solid ${theme.palette.divider}`,
@@ -134,7 +125,8 @@ export const MajorDetails: React.FC<{
               >
                 <h3
                   style={{
-                    fontSize: "32px",
+                    fontSize: "42px",
+                    marginTop: "5px",
                     marginBottom: "30px",
                     color: theme.palette.secondary.light,
                     borderLeft: `5px solid ${theme.palette.secondary.light}`,
@@ -158,7 +150,7 @@ export const MajorDetails: React.FC<{
                         padding: "25px 40px",
                         marginBottom: "20px",
                         borderRadius: "15px",
-                        fontSize: "26px",
+                        fontSize: "38px",
                         borderLeft: `5px solid ${theme.palette.secondary.main}`,
                         transform: `translateX(${(1 - spr) * 100}px)` ,
                         opacity: spr,
@@ -171,7 +163,7 @@ export const MajorDetails: React.FC<{
                         textShadow: "0 0 10px rgba(236, 72, 153, 0.6)",
                       }}
                     >
-                      <span style={{ fontSize: "30px", color: theme.palette.secondary.main }}>✨</span>
+                      <span style={{ fontSize: "38px", color: theme.palette.secondary.main }}>✨</span>
                       {f}
                     </div>
                   );
@@ -182,13 +174,13 @@ export const MajorDetails: React.FC<{
                     padding: "20px 24px",
                     background: "rgba(15,23,42,0.9)",
                     borderRadius: "12px",
-                    fontSize: "18px",
+                    fontSize: "32px",
                     color: theme.palette.text.secondary,
                     border: `1px dashed ${theme.palette.secondary.main}`,
                     boxShadow: "0 0 18px rgba(15,23,42,0.85)",
                   }}
                 >
-                  * 该专业连续5年就业率超98%，与300强企业深度合作
+                  * 该专业连续5年就业率超98%，与300多家企业深度合作
                 </div>
               </div>
             )}
