@@ -36,7 +36,7 @@ const FOOTER_TEXT = "广东省高新技术高级技工学校 | FUTURE SKILLS";
 
 const fps = 30;
 
-const mp3_audio_path = "welcome_music.mp3"
+const mp3_audio_path = "welcome_music.mp3";
 
 const BaseLayout: React.FC<{
   children: React.ReactNode;
@@ -44,8 +44,9 @@ const BaseLayout: React.FC<{
 }> = ({ children, withAudio = true }) => {
   return (
     <AbsoluteFill
-      style={{ 
-        fontFamily: "'Noto Sans CJK SC', 'WenQuanYi Micro Hei', 'Microsoft YaHei', system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+      style={{
+        fontFamily:
+          "'Noto Sans CJK SC', 'WenQuanYi Micro Hei', 'Microsoft YaHei', system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
       <CyberBackground />
@@ -94,7 +95,8 @@ const BaseLayout: React.FC<{
 // 原始完整版本：用于 Remotion Studio 预览（保留完整结构）
 const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
   const students = rawStudents as unknown as Student[];
-  const autoMajorDetails = (students[1] && students[1].majorDetails) || props.majorDetails;
+  const autoMajorDetails =
+    (students[1] && students[1].majorDetails) || props.majorDetails;
 
   return (
     <BaseLayout withAudio>
@@ -108,17 +110,14 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
             duration={fps * 5}
           />
         </Series.Sequence>
-
         {/* 2. 校园概览：环境与设施 (5–15秒 / 10秒) */}
         <Series.Sequence durationInFrames={fps * 10}>
           <Intro frame={0} duration={fps * 10} />
         </Series.Sequence>
-
         {/* 3. 核心优势与荣耀 */}
         <Series.Sequence durationInFrames={fps * 8}>
           <HonorMilestones frame={0} duration={fps * 8} />
         </Series.Sequence>
-
         {/* 5. 专业梦想蓝图：汽车维修专业介绍 */}
         <Series.Sequence durationInFrames={fps * 8}>
           <MajorDetails
@@ -127,31 +126,18 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
             duration={fps * 8}
           />
         </Series.Sequence>
-
         {/* 6. 校园风景独立段落 */}
         <Series.Sequence durationInFrames={825}>
           <CampusScenery />
         </Series.Sequence>
-
         {/* 7. 个人电子档案：主打明星学生档案 */}
         <Series.Sequence durationInFrames={fps * 10}>
           <StudentInfo {...props} frame={0} duration={fps * 10} />
         </Series.Sequence>
-
-        {/* 8. 明星学生群像：5位学生轮播卡片 */}
-        <Series.Sequence durationInFrames={fps * 9}>
-          <StudentShowcase
-            students={props.extraStudents}
-            frame={0}
-            duration={fps * 9}
-          />
-        </Series.Sequence>
-
         {/* 9. 号召行动与结语 */}
         <Series.Sequence durationInFrames={fps * 5}>
           <FinalQuote quote={props.quote} frame={0} duration={fps * 5} />
         </Series.Sequence>
-
       </Series>
     </BaseLayout>
   );
@@ -395,7 +381,7 @@ export const RemotionRoot: React.FC = () => {
       />
       {/* 分段渲染用的 Outro 片段（41–55 秒） */}
       <Composition
-        id="10-End"
+        id="10-FinalQuote"
         component={AdmissionLetterOutroComp}
         durationInFrames={fps * 14}
         fps={fps}
