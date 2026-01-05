@@ -1,4 +1,4 @@
-name: Render admission videos
+name: Render school videos
 
 on:
   push:
@@ -41,7 +41,7 @@ jobs:
         # 仓库里没有 package-lock.json，用 npm install 而不是 npm ci
         run: npm install
 
-      - name: Build admission videos with Remotion
+      - name: Build school videos with Remotion
         env:
           NODE_ENV: production
         run: |
@@ -51,6 +51,6 @@ jobs:
       - name: Upload rendered videos as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: admission-videos-${{ github.run_number }}
+          name: school-videos-${{ github.run_number }}
           path: out/*.mp4
           if-no-files-found: error

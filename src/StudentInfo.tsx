@@ -5,14 +5,13 @@ export const StudentInfo: React.FC<{
   name: string;
   major: string;
   class: string;
-  admissionDate: string;
   idPhoto: string;
   profile: { studentId: string; hometown: string; hobby: string };
   grades: { subject: string; score: number }[];
   skills: Record<string, number>;
   frame: number;
   duration: number;
-}> = ({ name, major, class: className, admissionDate, idPhoto, profile, grades, skills, frame, duration }) => {
+}> = ({ name, major, class: className, idPhoto, profile, grades, skills, frame, duration }) => {
   const currentFrame = useCurrentFrame();
   const fps = 30;
 
@@ -90,7 +89,7 @@ export const StudentInfo: React.FC<{
                 }}
               >
                 <Img
-                  src={staticFile("Student.png")}
+                  src={staticFile(idPhoto)}
                   style={{
                     width: "100%",
                     height: "100%",
@@ -322,7 +321,7 @@ export const StudentInfo: React.FC<{
                 个人综合评分 95.5
               </p>
               <p style={{ fontSize: "38px", opacity: 0.7, marginTop: "8px" }}>
-                恭喜通过高新智学评价体系认证
+                恭喜通过高新智学评价体系
               </p>
             </div>
           </div>

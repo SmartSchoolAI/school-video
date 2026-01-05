@@ -4,7 +4,6 @@
     "name": "张明哲",
     "major": "电子商务",
     "class": "电商2401班",
-    "admissionDate": "2024年9月1日",
     "quote": "开启你的电商梦，连接全球大市场！",
     "idPhoto": "student.png",
     "profile": {
@@ -38,9 +37,8 @@
     "name": "李四",
     "major": "汽车维修",
     "class": "汽修2405班",
-    "admissionDate": "2024年9月1日",
     "quote": "精修技术，智领未来，做大国工匠！",
-    "idPhoto": "https://api.dicebear.com/7.x/avataaars/svg?seed=LiSi",
+    "idPhoto": "student.png",
     "profile": {
       "studentId": "20240901042",
       "hometown": "广东佛山",

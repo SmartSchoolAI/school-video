@@ -11,12 +11,11 @@ import { type Student } from "./StudentShowcase";
 import { theme } from "./theme";
 import { CampusScenery } from "./CampusScenery";
 
-export type AdmissionVideoProps = {
+export type VideoProps = {
   // 主打一位“明星学生”的详细信息（沿用原有结构）
   name: string;
   major: string;
   class: string;
-  admissionDate: string;
   quote: string;
   idPhoto: string;
   profile: { studentId: string; hometown: string; hobby: string };
@@ -93,7 +92,7 @@ const BaseLayout: React.FC<{
 };
 
 // 原始完整版本：用于 Remotion Studio 预览（保留完整结构）
-const WholeVideo: React.FC<AdmissionVideoProps> = (props) => {
+const WholeVideo: React.FC<VideoProps> = (props) => {
   const students = rawStudents as unknown as Student[];
   const autoMajorDetails =
     (students[1] && students[1].majorDetails) || props.majorDetails;
@@ -144,7 +143,7 @@ const WholeVideo: React.FC<AdmissionVideoProps> = (props) => {
 };
 
 // Intro 拆分：仅开场 Title 页面
-const AdmissionIntroTitleComp: React.FC = () => {
+const IntroTitleComp: React.FC = () => {
   return (
     <BaseLayout withAudio={false}>
       <Series>
@@ -162,7 +161,7 @@ const AdmissionIntroTitleComp: React.FC = () => {
 };
 
 // Intro 拆分：仅 Intro 页面
-const AdmissionIntroSchoolComp: React.FC = () => {
+const IntroSchoolComp: React.FC = () => {
   return (
     <BaseLayout withAudio={false}>
       <Series>
@@ -175,7 +174,7 @@ const AdmissionIntroSchoolComp: React.FC = () => {
 };
 
 // Intro 拆分：仅 Honor 页面
-const AdmissionIntroHonorComp: React.FC = () => {
+const IntroHonorComp: React.FC = () => {
   return (
     <BaseLayout withAudio={false}>
       <Series>
@@ -188,7 +187,7 @@ const AdmissionIntroHonorComp: React.FC = () => {
 };
 
 // 优化渲染：只包含“学生档案”段（31–41 秒）
-const AdmissionLetterStudentComp: React.FC<AdmissionVideoProps> = (props) => {
+const StudentComp: React.FC<VideoProps> = (props) => {
   return (
     <BaseLayout withAudio={false}>
       <Series>
@@ -202,8 +201,8 @@ const AdmissionLetterStudentComp: React.FC<AdmissionVideoProps> = (props) => {
 
 // 新增：只包含“专业蓝图（电子商务等专业介绍）”的专业片段
 // 方便单独渲染某个专业介绍，例如 “电子商务 (现代商务方向)”
-const AdmissionMajorDetailsComp: React.FC<{
-  majorDetails: AdmissionVideoProps["majorDetails"];
+const MajorDetailsComp: React.FC<{
+  majorDetails: VideoProps["majorDetails"];
 }> = ({ majorDetails }) => {
   return (
     <BaseLayout withAudio={false}>
@@ -221,7 +220,7 @@ const AdmissionMajorDetailsComp: React.FC<{
 };
 
 // 优化渲染：只包含“结语”段（41–55 秒）
-const AdmissionLetterOutroComp: React.FC<{
+const LetterOutroComp: React.FC<{
   quote: string;
 }> = ({ quote }) => {
   return (
@@ -256,7 +255,6 @@ export const RemotionRoot: React.FC = () => {
           name: hero.name,
           major: hero.major,
           class: hero.class,
-          admissionDate: hero.admissionDate,
           quote: hero.quote,
           idPhoto: hero.idPhoto,
           profile: hero.profile,
@@ -270,7 +268,7 @@ export const RemotionRoot: React.FC = () => {
       {/* Intro 拆分：仅 Title 页面 */}
       <Composition
         id="1-Cover"
-        component={AdmissionIntroTitleComp}
+        component={IntroTitleComp}
         durationInFrames={fps * 5}
         fps={fps}
         width={1080}
@@ -280,7 +278,7 @@ export const RemotionRoot: React.FC = () => {
       {/* Intro 拆分：仅 Intro 页面 */}
       <Composition
         id="2-Intro"
-        component={AdmissionIntroSchoolComp}
+        component={IntroSchoolComp}
         durationInFrames={fps * 10}
         fps={fps}
         width={1080}
@@ -290,7 +288,7 @@ export const RemotionRoot: React.FC = () => {
       {/* Intro 拆分：仅 Honor 页面 */}
       <Composition
         id="3-Honor"
-        component={AdmissionIntroHonorComp}
+        component={IntroHonorComp}
         durationInFrames={fps * 8}
         fps={fps}
         width={1080}
@@ -301,7 +299,7 @@ export const RemotionRoot: React.FC = () => {
       {/* 分段渲染用的 Student 片段（31–41 秒） */}
       <Composition
         id="7-StudentInfo"
-        component={AdmissionLetterStudentComp}
+        component={StudentComp}
         durationInFrames={fps * 10}
         fps={fps}
         width={1080}
@@ -310,7 +308,6 @@ export const RemotionRoot: React.FC = () => {
           name: hero.name,
           major: hero.major,
           class: hero.class,
-          admissionDate: hero.admissionDate,
           quote: hero.quote,
           idPhoto: hero.idPhoto,
           profile: hero.profile,
@@ -323,7 +320,7 @@ export const RemotionRoot: React.FC = () => {
       {/* 只包含“汽车维修专业蓝图”的独立片段 */}
       <Composition
         id="5-Major-RepairCar"
-        component={AdmissionMajorDetailsComp}
+        component={MajorDetailsComp}
         durationInFrames={fps * 8}
         fps={fps}
         width={1080}
@@ -343,7 +340,7 @@ export const RemotionRoot: React.FC = () => {
       {/* 分段渲染用的 Outro 片段（41–44 秒） */}
       <Composition
         id="10-FinalQuote"
-        component={AdmissionLetterOutroComp}
+        component={LetterOutroComp}
         durationInFrames={fps * 3}
         fps={fps}
         width={1080}
