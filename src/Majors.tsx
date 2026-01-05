@@ -1,18 +1,18 @@
 import { AbsoluteFill, useCurrentFrame, interpolate, spring } from "remotion";
 import { theme } from "./theme";
 
-export const MajorDetails: React.FC<{
-  majorDetails: { title: string; features: string[]; motto: string; future: string[] };
+export const Majors: React.FC<{
+  majors: { title: string; features: string[]; motto: string; future: string[] };
   frame: number;
   duration: number;
-}> = ({ majorDetails, frame, duration }) => {
+}> = ({ majors, frame, duration }) => {
   const currentFrame = useCurrentFrame();
   const fps = 30;
 
   // 左侧从 frame + 15 开始依次进场，间隔 8 帧；右侧在左侧最后一张出现稍后一点再开始
   const leftBaseOffset = 15;
   const itemInterval = 8;
-  const leftLastStart = frame + leftBaseOffset + Math.max(0, majorDetails.features.length - 1) * itemInterval;
+  const leftLastStart = frame + leftBaseOffset + Math.max(0, majors.features.length - 1) * itemInterval;
   const rightStartGap = 10; // 左侧结束后再等 10 帧，避免空档太久
   const rightStartFrame = leftLastStart + rightStartGap;
 
@@ -57,7 +57,7 @@ export const MajorDetails: React.FC<{
               textShadow: "0 0 24px rgba(124, 77, 255, 0.8)",
             }}
           >
-            {majorDetails.title}
+            {majors.title}
           </h2>
           <div
             style={{
@@ -67,7 +67,7 @@ export const MajorDetails: React.FC<{
               textShadow: "0 0 16px rgba(244, 143, 177, 0.8)",
             }}
           >
-            “{majorDetails.motto}”
+            “{majors.motto}”
           </div>
         </div>
 
@@ -77,7 +77,7 @@ export const MajorDetails: React.FC<{
             <h3 style={{ fontSize: "48px", marginTop: "5px", marginBottom: "26px", color: theme.palette.primary.light, borderLeft: `5px solid ${theme.palette.primary.light}`, paddingLeft: "15px" }}>
               核心技能实训 ▷
             </h3>
-            {majorDetails.features.map((f, i) => {
+            {majors.features.map((f, i) => {
                const spr = spring({
                 frame: currentFrame - (frame + leftBaseOffset + i * itemInterval),
                 fps,
@@ -135,7 +135,7 @@ export const MajorDetails: React.FC<{
                 >
                   职业发展方向 ▷
                 </h3>
-                {majorDetails.future.map((f, i) => {
+                {majors.future.map((f, i) => {
                   const spr = spring({
                     frame: currentFrame - (rightStartFrame + i * itemInterval),
                     fps,

@@ -3,33 +3,16 @@ import { Cover } from "./Cover";
 import { Intro } from "./Intro";
 import { Honor } from "./Honor";
 import { StudentInfo } from "./StudentInfo";
-import { MajorDetails } from "./MajorDetails";
+import { Majors } from "./Majors";
 import { FinalQuote } from "./FinalQuote";
 import { CyberBackground } from "./CyberBackground";
 import rawStudents from "./students.json";
-import { type Student } from "./StudentShowcase";
 import { theme } from "./theme";
-import { CampusScenery } from "./CampusScenery";
+import { Campus } from "./Campus";
 
-export type VideoProps = {
-  // 主打一位“明星学生”的详细信息（沿用原有结构）
-  name: string;
-  major: string;
-  class: string;
-  quote: string;
-  idPhoto: string;
-  profile: { studentId: string; hometown: string; hobby: string };
-  grades: { subject: string; score: number }[];
-  skills: Record<string, number>;
-  majorDetails: {
-    title: string;
-    features: string[];
-    motto: string;
-    future: string[];
-  };
-  // 额外的明星学生，用于 30–45 秒“个性化高潮段落”
-  extraStudents: Student[];
-};
+import students from './students.json';
+import majors from './majors.json';
+
 
 const FOOTER_TEXT = "广东省高新技术高级技工学校 | HIGH TECH";
 
@@ -92,10 +75,10 @@ const BaseLayout: React.FC<{
 };
 
 // 原始完整版本：用于 Remotion Studio 预览（保留完整结构）
-const WholeVideo: React.FC<VideoProps> = (props) => {
-  const students = rawStudents as unknown as Student[];
-  const autoMajorDetails =
-    (students[1] && students[1].majorDetails) || props.majorDetails;
+const WholeVideo: React.FC<any> = (props) => {
+  const students = rawStudents as unknown as any[];
+  console.log("props", props)
+  const majors = props.majors;
 
   return (
     <BaseLayout withAudio={false}>
@@ -119,15 +102,15 @@ const WholeVideo: React.FC<VideoProps> = (props) => {
         </Series.Sequence>
         {/* 5. 专业梦想蓝图：汽车维修专业介绍 */}
         <Series.Sequence durationInFrames={fps * 8}>
-          <MajorDetails
-            majorDetails={autoMajorDetails}
+          <Majors
+            majors={majors[0]}
             frame={0}
             duration={fps * 8}
           />
         </Series.Sequence>
         {/* 6. 校园风景独立段落 */}
         <Series.Sequence durationInFrames={825}>
-          <CampusScenery />
+          <Campus />
         </Series.Sequence>
         {/* 7. 个人电子档案：主打明星学生档案 */}
         <Series.Sequence durationInFrames={fps * 10}>
@@ -187,7 +170,7 @@ const IntroHonorComp: React.FC = () => {
 };
 
 // 优化渲染：只包含“学生档案”段（31–41 秒）
-const StudentComp: React.FC<VideoProps> = (props) => {
+const StudentComp: React.FC<any> = (props) => {
   return (
     <BaseLayout withAudio={false}>
       <Series>
@@ -201,15 +184,15 @@ const StudentComp: React.FC<VideoProps> = (props) => {
 
 // 新增：只包含“专业蓝图（电子商务等专业介绍）”的专业片段
 // 方便单独渲染某个专业介绍，例如 “电子商务 (现代商务方向)”
-const MajorDetailsComp: React.FC<{
-  majorDetails: VideoProps["majorDetails"];
-}> = ({ majorDetails }) => {
+const majorsComp: React.FC<{
+  majors: any["majors"];
+}> = ({ majors }) => {
   return (
     <BaseLayout withAudio={false}>
       <Series>
         <Series.Sequence durationInFrames={fps * 8}>
-          <MajorDetails
-            majorDetails={majorDetails}
+          <Majors
+            majors={majors}
             frame={0}
             duration={fps * 8}
           />
@@ -237,7 +220,7 @@ const LetterOutroComp: React.FC<{
 export const RemotionRoot: React.FC = () => {
   // JSON 中的 skills 字段结构会被 TypeScript 推断为联合类型，这里通过 unknown 中转
   // 明确告诉编译器：该数组在运行时符合 Student 结构
-  const students = rawStudents as unknown as Student[];
+  const students = rawStudents as unknown as any[];
   const hero = students[0];
   const extraStudents = students.slice(0, 5);
 
@@ -260,7 +243,7 @@ export const RemotionRoot: React.FC = () => {
           profile: hero.profile,
           grades: hero.grades,
           skills: hero.skills,
-          majorDetails: hero.majorDetails,
+          majors: hero.majors,
           extraStudents,
         }}
       />
@@ -295,7 +278,7 @@ export const RemotionRoot: React.FC = () => {
         height={1920}
         defaultProps={{}}
       />
-      {/* Intro 拆分：仅 MajorDetails 页面 */}
+      {/* Intro 拆分：仅 majors 页面 */}
       {/* 分段渲染用的 Student 片段（31–41 秒） */}
       <Composition
         id="7-StudentInfo"
@@ -313,24 +296,24 @@ export const RemotionRoot: React.FC = () => {
           profile: hero.profile,
           grades: hero.grades,
           skills: hero.skills,
-          majorDetails: hero.majorDetails,
+          majors: hero.majors,
           extraStudents,
         }}
       />
       {/* 只包含“汽车维修专业蓝图”的独立片段 */}
       <Composition
-        id="5-Major-RepairCar"
-        component={MajorDetailsComp}
+        id="5-Majors"
+        component={majorsComp}
         durationInFrames={fps * 8}
         fps={fps}
         width={1080}
         height={1920}
-        defaultProps={{ majorDetails: students[1].majorDetails }}
+        defaultProps={{majors: majors[0]}}
       />
       {/* 校园风景展示独立视频（基于 public/01-10.jpg） */}
       <Composition
         id="6-Campus"
-        component={CampusScenery}
+        component={Campus}
         durationInFrames={825}
         fps={fps}
         width={1080}
