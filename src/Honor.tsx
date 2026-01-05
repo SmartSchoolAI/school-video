@@ -12,7 +12,7 @@ const awards = [
   "产教融合示范性实训基地"
 ];
 
-export const HonorMilestones: React.FC<{ frame: number; duration: number }> = ({ frame, duration }) => {
+export const Honor: React.FC<{ frame: number; duration: number }> = ({ frame, duration }) => {
   const currentFrame = useCurrentFrame();
   const fps = 30;
 
@@ -29,7 +29,7 @@ export const HonorMilestones: React.FC<{ frame: number; duration: number }> = ({
     <AbsoluteFill
       style={{
         opacity,
-        padding: '0px 40px 0px 40px',
+        padding: '0px 60px 0px 60px',
         color: theme.palette.text.primary,
       }}
     >

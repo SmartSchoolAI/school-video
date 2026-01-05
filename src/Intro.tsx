@@ -103,7 +103,7 @@ export const Intro: React.FC<{ frame: number; duration: number }> = ({ frame, du
       <div
         style={{
           position: "relative",
-          top: "56px",
+          top: "100px",
           width: "100%",
           display: "flex",
           justifyContent: "center",
