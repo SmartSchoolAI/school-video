@@ -1,6 +1,6 @@
 import { Composition, AbsoluteFill, Series, Audio, staticFile } from "remotion";
 import { Cover } from "./Cover";
-import { SchoolIntro } from "./SchoolIntro";
+import { Intro } from "./Intro";
 import { HonorMilestones } from "./HonorMilestones";
 import { StudentInfo } from "./StudentInfo";
 import { MajorDetails } from "./MajorDetails";
@@ -111,7 +111,7 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
         </Series.Sequence>
         {/* 2. 校园概览：环境与设施 (5–15秒 / 10秒) */}
         <Series.Sequence durationInFrames={fps * 10}>
-          <SchoolIntro frame={0} duration={fps * 10} />
+          <Intro frame={0} duration={fps * 10} />
         </Series.Sequence>
         {/* 3. 核心优势与荣耀 */}
         <Series.Sequence durationInFrames={fps * 8}>
@@ -172,7 +172,7 @@ const AdmissionLetterIntroComp: React.FC<{ hero: Student }> = ({ hero }) => {
           />
         </Series.Sequence>
         <Series.Sequence durationInFrames={fps * 10}>
-          <SchoolIntro frame={0} duration={fps * 10} />
+          <Intro frame={0} duration={fps * 10} />
         </Series.Sequence>
         <Series.Sequence durationInFrames={fps * 8}>
           <HonorMilestones frame={0} duration={fps * 8} />
@@ -207,13 +207,13 @@ const AdmissionIntroTitleComp: React.FC = () => {
   );
 };
 
-// Intro 拆分：仅 SchoolIntro 页面
+// Intro 拆分：仅 Intro 页面
 const AdmissionIntroSchoolComp: React.FC = () => {
   return (
     <BaseLayout withAudio={false}>
       <Series>
         <Series.Sequence durationInFrames={fps * 10}>
-          <SchoolIntro frame={0} duration={fps * 10} />
+          <Intro frame={0} duration={fps * 10} />
         </Series.Sequence>
       </Series>
     </BaseLayout>
@@ -351,7 +351,7 @@ export const RemotionRoot: React.FC = () => {
         height={1920}
         defaultProps={{}}
       />
-      {/* Intro 拆分：仅 SchoolIntro 页面 */}
+      {/* Intro 拆分：仅 Intro 页面 */}
       <Composition
         id="2-Intro"
         component={AdmissionIntroSchoolComp}
