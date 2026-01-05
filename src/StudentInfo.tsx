@@ -91,7 +91,7 @@ export const StudentInfo: React.FC<{
                   position: "absolute",
                   inset: 0,
                   borderRadius: "24px",
-                  boxShadow: "inset 0 0 22px rgba(129, 140, 248, 0.85)",
+                  boxShadow: "inset 0 0 32px rgba(129, 140, 248, 0.85)",
                   pointerEvents: "none",
                 }}
               />
@@ -143,7 +143,7 @@ export const StudentInfo: React.FC<{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
               gap: "20px",
-              fontSize: "22px",
+              fontSize: "32px",
             }}
           >
             <div
@@ -276,7 +276,7 @@ export const StudentInfo: React.FC<{
                     display: "flex",
                     justifyContent: "space-between",
                     marginBottom: "8px",
-                    fontSize: "22px",
+                    fontSize: "32px",
                   }}
                 >
                   <span>{g.subject}</span>

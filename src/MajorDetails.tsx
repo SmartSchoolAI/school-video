@@ -52,7 +52,7 @@ export const MajorDetails: React.FC<{
           <span
             style={{
               color: theme.palette.secondary.main,
-              fontSize: "22px",
+              fontSize: "32px",
               letterSpacing: "4px",
             }}
           >

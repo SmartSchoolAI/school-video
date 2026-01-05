@@ -70,7 +70,7 @@ export const Intro: React.FC<{ frame: number; duration: number }> = ({ frame, du
               key={item.title}
               style={{
                 background: 'linear-gradient(135deg, rgba(24, 16, 48, 0.95), rgba(52, 21, 72, 0.98))',
-                backdropFilter: 'blur(22px)',
+                backdropFilter: 'blur(32px)',
                 borderRadius: '26px',
                 padding: '26px',
                 border: '1px solid rgba(129, 140, 248, 0.6)',
@@ -99,6 +99,40 @@ export const Intro: React.FC<{ frame: number; duration: number }> = ({ frame, du
           );
         })}
       </div>
+
+      <div
+        style={{
+          position: "relative",
+          top: "56px",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "20px",
+          color: theme.palette.text.secondary,
+          fontSize: "20px",
+          letterSpacing: "3px",
+          zIndex: 10,
+          textShadow: "0 0 10px rgba(124, 77, 255, 0.8)",
+        }}
+      >
+        <div
+          style={{
+              width: "140px",
+              height: "6px",
+            background: `linear-gradient(to right, transparent, ${theme.palette.primary.light})`,
+          }}
+        />
+        六大特色
+        <div
+          style={{
+            width: "140px",
+            height: "6px",
+            background: `linear-gradient(to left, transparent, ${theme.palette.secondary.main})`,
+          }}
+        />
+      </div>
+
     </AbsoluteFill>
   );
 };

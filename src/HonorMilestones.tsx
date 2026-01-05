@@ -4,7 +4,7 @@ import { theme } from './theme';
 const awards = [
   "全国教育系统先进集体",
   "广东省职业教育先进单位",
-  "广州市花都区技工院校技能大赛一等奖",
+  "广州市技工院校技能大赛一等奖",
   "广东省电子商务专业技能竞赛金奖",
   "国家职业技能鉴定所优质服务奖",
   "广东省技工学校德育工作优秀奖",
@@ -29,20 +29,18 @@ export const HonorMilestones: React.FC<{ frame: number; duration: number }> = ({
     <AbsoluteFill
       style={{
         opacity,
-        padding: '70px 32px 60px',
+        padding: '0px 40px 0px 40px',
         color: theme.palette.text.primary,
-        display: 'flex',
-        justifyContent: 'center',
       }}
     >
-      <div style={{ width: '100%', maxWidth: 900 }}>
+      <div style={{ width: '100%' }}>
         <h2
           style={{
-            fontSize: '48px',
-            color: theme.palette.primary.light,
+            fontSize: '70px',
             textAlign: 'center',
-            marginBottom: '40px',
-            textShadow: '0 0 24px rgba(124, 77, 255, 0.95)',
+            color: theme.palette.primary.light,
+            marginBottom: '48px',
+            textShadow: '0 0 24px rgba(124, 77, 255, 0.8)',
           }}
         >
           学校荣耀 · 核心优势
@@ -68,23 +66,23 @@ export const HonorMilestones: React.FC<{ frame: number; duration: number }> = ({
             <div 
               key={i}
               style={{
-                background:
-                  'linear-gradient(135deg, rgba(24, 16, 48, 0.95), rgba(76, 29, 149, 0.98))',
-                padding: '16px 26px',
+                background: 'linear-gradient(135deg, rgba(24, 16, 48, 0.95), rgba(76, 29, 149, 0.98))',
+                padding: '32px 26px',
+                margin: '15px 0',
                 borderRadius: '999px',
                 border: '1px solid rgba(180, 124, 255, 0.9)',
-                fontSize: '20px',
+                fontSize: '48px',
                 transform: `translateX(${(1 - spr) * 120}px)`,
                 opacity: spr,
                 boxShadow: '0 16px 40px rgba(15, 23, 42, 0.95)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
+                gap: '28px',
                 width: '100%',
                 justifyContent: 'flex-start',
               }}
             >
-              <span style={{ fontSize: '26px' }}>🏅</span>
+              <span style={{ fontSize: '48px' }}>🏅</span>
               {award}
             </div>
           );
@@ -95,7 +93,7 @@ export const HonorMilestones: React.FC<{ frame: number; duration: number }> = ({
           style={{
             marginTop: '40px',
             textAlign: 'center',
-            fontSize: '22px',
+            fontSize: '48px',
             fontStyle: 'italic',
             color: theme.palette.secondary.light,
           }}

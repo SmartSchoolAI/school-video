@@ -164,7 +164,7 @@ export const StudentShowcase: React.FC<{
 
                 <div
                   style={{
-                    marginTop: "22px",
+                    marginTop: "32px",
                     fontSize: "18px",
                     color: theme.palette.secondary.light,
                     fontStyle: "italic",
@@ -192,7 +192,7 @@ export const StudentShowcase: React.FC<{
               <div>
                 <div
                   style={{
-                    fontSize: "22px",
+                    fontSize: "32px",
                     letterSpacing: "2px",
                     color: theme.palette.secondary.main,
                     marginBottom: "10px",
