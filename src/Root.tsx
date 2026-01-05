@@ -32,7 +32,7 @@ export type AdmissionVideoProps = {
   extraStudents: Student[];
 };
 
-const FOOTER_TEXT = "广东省高新技术高级技工学校 | FUTURE SKILLS";
+const FOOTER_TEXT = "广东省高新技术高级技工学校 | HIGHT TECH";
 
 const fps = 30;
 
@@ -41,7 +41,7 @@ const mp3_audio_path = "welcome_music.mp3";
 const BaseLayout: React.FC<{
   children: React.ReactNode;
   withAudio?: boolean;
-}> = ({ children, withAudio = true }) => {
+}> = ({ children, withAudio = false }) => {
   return (
     <AbsoluteFill
       style={{
@@ -99,7 +99,7 @@ const WholeVideo: React.FC<AdmissionVideoProps> = (props) => {
     (students[1] && students[1].majorDetails) || props.majorDetails;
 
   return (
-    <BaseLayout withAudio>
+    <BaseLayout withAudio={false}>
       <Series>
         {/* 1. 开场：校名与主题 (0–5秒) */}
         <Series.Sequence durationInFrames={fps * 5}>
@@ -136,7 +136,7 @@ const WholeVideo: React.FC<AdmissionVideoProps> = (props) => {
         </Series.Sequence>
         {/* 9. 号召行动与结语 */}
         <Series.Sequence durationInFrames={fps * 5}>
-          <FinalQuote quote={props.quote} frame={0} duration={fps * 5} />
+          <FinalQuote frame={0} duration={fps * 5} />
         </Series.Sequence>
       </Series>
     </BaseLayout>
@@ -228,7 +228,7 @@ const AdmissionLetterOutroComp: React.FC<{
     <BaseLayout withAudio={false}>
       <Series>
         <Series.Sequence durationInFrames={fps * 5}>
-          <FinalQuote quote={quote} frame={0} duration={fps * 5} />
+          <FinalQuote frame={0} duration={fps * 5} />
         </Series.Sequence>
       </Series>
     </BaseLayout>

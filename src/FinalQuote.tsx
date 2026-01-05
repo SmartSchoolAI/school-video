@@ -1,83 +1,183 @@
-import { AbsoluteFill, useCurrentFrame, interpolate } from 'remotion';
+import { AbsoluteFill, useCurrentFrame, interpolate, spring, useVideoConfig, staticFile } from 'remotion';
 import { theme } from './theme';
 
-export const FinalQuote: React.FC<{ quote: string; frame: number; duration: number }> = ({ quote, frame, duration }) => {
-  const currentFrame = useCurrentFrame();
-  const opacity = interpolate(currentFrame, [frame, frame + 20, frame + duration - 20, frame + duration], [0, 1, 1, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
+export const FinalQuote: React.FC<{ frame: number; duration: number }> = ({ frame, duration }) => {
+  const frameCurrent = useCurrentFrame();
+  const { fps } = useVideoConfig();
 
-  if (currentFrame < frame || currentFrame >= frame + duration) {
-    return null;
-  }
+  // 基础淡入淡出
+  const opacity = interpolate(
+    frameCurrent,
+    [frame, frame + 15, frame + duration - 15, frame + duration],
+    [0, 1, 1, 0],
+    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
+  );
+
+  // 计算动画进场（每一行增加 5 帧的延迟）
+  const getEntryStyle = (index: number) => {
+    const delay = index * 5;
+    const progress = spring({
+      frame: frameCurrent - frame - delay,
+      fps,
+      config: { damping: 12, stiffness: 100 },
+    });
+
+    return {
+      opacity: progress,
+      transform: `translateX(${interpolate(progress, [0, 1], [100, 0])}px)`,
+    };
+  };
+
+  if (frameCurrent < frame || frameCurrent >= frame + duration) return null;
 
   return (
     <AbsoluteFill
       style={{
         opacity,
-        padding: '0px 40px 0px 40px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '10px 50px',
+        margin: 0,
         color: theme.palette.text.primary,
+        fontFamily: 'sans-serif',
       }}
     >
+      {/* 顶部标题 */}
       <h2
         style={{
           fontSize: '70px',
           textAlign: 'center',
           color: theme.palette.primary.light,
-          marginBottom: '48px',
-          textShadow: '0 0 24px rgba(124, 77, 255, 0.8)',
+          marginTop: '0',
+          marginBottom: '80px',
+          textShadow: '0 0 24px rgba(124, 77, 255, 0.6)',
+          letterSpacing: '8px',
         }}
       >
         欢迎报考 · 广东高新
       </h2>
-      <div 
+
+      {/* 主卡片容器 */}
+      <div
         style={{
-          padding: '40px 32px',
-          borderRadius: '40px',
-          background:
-            'linear-gradient(135deg, rgba(24, 16, 48, 0.96), rgba(76, 29, 149, 0.98))',
-          border: `1px solid ${theme.palette.divider}`,
-          boxShadow: '0 26px 60px rgba(15,23,42,0.95)',
-          textAlign: 'center',
-          margin: '0 20px',
+          padding: '40px 40px',
+          borderRadius: '50px',
+          background: 'linear-gradient(160deg, rgba(30, 20, 60, 0.95), rgba(60, 20, 120, 0.95))',
+          border: `2px solid rgba(255, 255, 255, 0.1)`,
+          boxShadow: '0 40px 100px rgba(0,0,0,0.6)',
+          width: '90%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
         <h2
           style={{
-            fontSize: '68px',
+            fontSize: '64px',
             fontStyle: 'italic',
-            color: theme.palette.secondary.light,
-            marginBottom: '24px',
-            textShadow: '0 0 20px rgba(236,72,153,0.9)',
+            color: '#FFD700', // 金色点缀
+            marginBottom: '40px',
+            ...getEntryStyle(0),
           }}
         >
-          “读高新高技, 学高新技术”
+          “读高新高技，学高新技术”
         </h2>
+
+        {/* 校训：使用边框和间距增强仪式感 */}
         <div
           style={{
-            fontSize: '58px',
-            opacity: 0.9,
-            letterSpacing: '4px',
-            marginBottom: '26px',
+            fontSize: '50px',
+            fontWeight: 'bold',
+            letterSpacing: '12px',
+            padding: '10px 20px',
+            borderBottom: `2px solid ${theme.palette.secondary.main}`,
+            marginBottom: '50px',
+            color: theme.palette.secondary.light,
+            ...getEntryStyle(1),
           }}
         >
-          厚德,强能,进取,创新
+          厚德 · 强能 · 进取 · 创新
         </div>
 
-        <div
-          style={{
-            marginTop: '10px',
-            fontSize: '48px',
-            lineHeight: 1.8,
-          }}
-        >
-          <div>立即报名 · 开启你的技能人生！</div>
-          <div style={{ marginTop: '10px', fontSize: '48px', opacity: 0.85 }}>
-            招生热线：020-XXXX XXXX ｜ 官网：www.gdgxjg.edu.cn
+        {/* 信息区块 */}
+        <div style={{ textAlign: 'center', width: '100%' }}>
+          <div
+            style={{
+              fontSize: '52px',
+              fontWeight: '600',
+              color: '#fff',
+              marginBottom: '30px',
+              ...getEntryStyle(2),
+            }}
+          >
+            🚀 立即报名 · 开启高新技能人生！
           </div>
-          <div style={{ marginTop: '4px', fontSize: '48px', opacity: 0.75 }}>
-            （以上联系方式示意，可替换为真实电话 / 网址 / 二维码）
+
+          <div
+            style={{
+              fontSize: '46px',
+              marginBottom: '40px',
+              ...getEntryStyle(4),
+            }}
+          >
+            🌐 官方网站：www.gdjxzsb.com
+          </div>
+
+          <div
+            style={{
+              fontSize: '46px',
+              marginBottom: '30px',
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              padding: '10px 30px',
+              borderRadius: '15px',
+              display: 'inline-block',
+              ...getEntryStyle(3),
+            }}
+          >
+            📞 招生热线：<span style={{ color: theme.palette.primary.light }}>17701992275</span>
+          </div>
+
+          {/* 二维码占位优化 */}
+
+          <div
+            style={{
+              marginTop: '20px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              ...getEntryStyle(5), // 保持之前的动画逻辑
+            }}
+          >
+            <div
+              style={{
+                width: '320px',    // 稍微调大了一点，更醒目
+                height: '320px',
+                backgroundColor: '#fff',
+                borderRadius: '24px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                boxShadow: '0 15px 40px rgba(0,0,0,0.4)',
+                padding: '15px',   // 给二维码留一点白边，更美观
+                overflow: 'hidden'
+              }}
+            >
+              <img 
+                src={staticFile("WechatQrcode.jpg")} 
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '10px'
+                }} 
+                alt="Wechat QR Code"
+              />
+            </div>
+            <div style={{ marginTop: '35px', marginBottom: '15px', fontSize: '32px', opacity: 0.7, letterSpacing: '2px' }}>
+              扫描上方二维码 · 咨询详情
+            </div>
           </div>
         </div>
       </div>
