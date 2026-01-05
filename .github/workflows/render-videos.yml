@@ -41,12 +41,12 @@ jobs:
         # 仓库里没有 package-lock.json，用 npm install 而不是 npm ci
         run: npm install
 
-      - name: Build admission videos with Remotion (fast segmented mode)
+      - name: Build admission videos with Remotion
         env:
           NODE_ENV: production
         run: |
           mkdir -p out
-          npm run build:videos:fast
+          npm run build:videos
 
       - name: Upload rendered videos as artifact
         uses: actions/upload-artifact@v4
