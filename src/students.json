@@ -1,12 +1,12 @@
 [
   {
     "id": "2024GD001",
-    "name": "张三",
+    "name": "张明哲",
     "major": "电子商务",
     "class": "电商2401班",
     "admissionDate": "2024年9月1日",
     "quote": "开启你的电商梦，连接全球大市场！",
-    "idPhoto": "https://api.dicebear.com/7.x/avataaars/svg?seed=ZhangSan",
+    "idPhoto": "https://png.pngtree.com/png-vector/20250624/ourlarge/pngtree-boys-front-avatar-of-middle-school-students-png-image_16477594.png",
     "profile": {
       "studentId": "20240901001",
       "hometown": "广东广州",
