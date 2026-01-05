@@ -1,6 +1,6 @@
 import { AbsoluteFill, Img, staticFile, useCurrentFrame, spring, interpolate } from 'remotion';
 import { theme } from './theme';
-import { CyberBackground } from './CyberBackground';
+import { Background } from './Background';
 
 const IMAGES = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg'];
 
@@ -22,7 +22,7 @@ export const Campus: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.palette.background.main, overflow: 'hidden' }}>
-      <CyberBackground />
+      <Background />
 
       {/* 顶部：标题 + 导航 */}
       <div style={{ position: 'absolute', top: 20, left: 80, right: 80, color: theme.palette.text.primary, zIndex: 10 }}>

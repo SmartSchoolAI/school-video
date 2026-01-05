@@ -57,7 +57,7 @@ export const StudentInfo: React.FC<{
             textShadow: '0 0 24px rgba(124, 77, 255, 0.8)',
           }}
         >
-          广东高新 · 明星校友
+          广东高新 · 优秀学生
         </h2>
         <div
           style={{

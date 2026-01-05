@@ -1,9 +1,8 @@
 import { AbsoluteFill, useCurrentFrame, interpolate, spring } from 'remotion';
 import { theme } from './theme';
 
-export const Cover: React.FC<{ title: string; subtitle?: string; frame: number; duration: number }> = ({
-  title,
-  subtitle,
+export const Cover: React.FC<{ data: any, frame: number; duration: number }> = ({
+  data,
   frame,
   duration,
 }) => {
@@ -22,7 +21,7 @@ export const Cover: React.FC<{ title: string; subtitle?: string; frame: number; 
   });
 
   // 分离字符以进行粒子汇聚效果模拟
-  const characters = title.split('');
+  const characters = data.Title.split('');
 
   return (
     <AbsoluteFill
@@ -43,7 +42,7 @@ export const Cover: React.FC<{ title: string; subtitle?: string; frame: number; 
           maxWidth: '100%',
         }}
       >
-        {characters.map((char, i) => {
+        {characters.map((char: any, i: number) => {
           const charEntryFrame = frame + i * 3;
           const charOpacity = interpolate(currentFrame, [charEntryFrame, charEntryFrame + 15], [0, 1]);
           const charScale = spring({
@@ -88,7 +87,7 @@ export const Cover: React.FC<{ title: string; subtitle?: string; frame: number; 
         }}
       />
 
-      {subtitle && (
+      {data.Subtitle && (
         <div
           style={{
             marginTop: '40px',
@@ -98,7 +97,7 @@ export const Cover: React.FC<{ title: string; subtitle?: string; frame: number; 
             textShadow: '0 0 14px rgba(236, 72, 153, 0.9)',
           }}
         >
-          {subtitle}
+          {data.Subtitle}
         </div>
       )}
     </AbsoluteFill>

@@ -1,0 +1,23 @@
+{
+  "settings": {
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "audioPath": "welcome_music.mp3",
+    "name": "广东省高新技术高级技工学校",
+    "footerText": "广东省高新技术高级技工学校 | HIGH TECH"
+  },
+  "sections": [
+    { "id": "Cover", "durationFrames": 150, "showFooter": false },
+    { "id": "Intro", "durationFrames": 300, "showFooter": true },
+    { "id": "Honor", "durationFrames": 240, "showFooter": false },
+    { "id": "Majors", "durationFrames": 240, "showFooter": false },
+    { "id": "Campus", "durationFrames": 825, "showFooter": true },
+    { "id": "StudentInfo", "durationFrames": 300, "showFooter": false },
+    { "id": "FinalQuote", "durationFrames": 150, "showFooter": true }
+  ],
+  "Cover": {
+    "Title": "广东省高新技术高级技工学校",
+    "Subtitle": "未来之星，闪耀启航！"
+  }
+}
