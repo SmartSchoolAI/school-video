@@ -164,7 +164,7 @@ const AdmissionLetterIntroComp: React.FC<{ hero: Student }> = ({ hero }) => {
     <BaseLayout withAudio={false}>
       <Series>
         <Series.Sequence durationInFrames={fps * 5}>
-          <Title
+          <Cover
             title="广东省高新技术高级技工学校"
             subtitle="未来之星，闪耀启航！"
             frame={0}
@@ -195,7 +195,7 @@ const AdmissionIntroTitleComp: React.FC = () => {
     <BaseLayout withAudio={false}>
       <Series>
         <Series.Sequence durationInFrames={fps * 5}>
-          <Title
+          <Cover
             title="广东省高新技术高级技工学校"
             subtitle="未来之星，闪耀启航！"
             frame={0}
