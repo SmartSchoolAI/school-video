@@ -20,30 +20,48 @@ const FPS = 30;
 const WIDTH = 1080;
 const HEIGHT = 1920;
 
-// --- 基础布局 ---
-const BaseLayout: React.FC<{ children: React.ReactNode; withAudio?: boolean }> = ({ 
+// --- 基础布局：增加 showFooter 控制 ---
+const BaseLayout: React.FC<{ 
+  children: React.ReactNode; 
+  withAudio?: boolean;
+  showFooter?: boolean; // 新增属性
+}> = ({ 
   children, 
-  withAudio = false 
+  withAudio = false,
+  showFooter = true // 默认为显示
 }) => (
   <AbsoluteFill style={{ backgroundColor: '#000', color: '#fff', overflow: 'hidden' }}>
     <CyberBackground />
     {withAudio && <Audio src={staticFile("welcome_music.mp3")} loop volume={0.6} />}
     
-    <div style={{
-      position: "absolute", bottom: "40px", width: "100%", display: "flex",
-      justifyContent: "center", alignItems: "center", gap: "20px",
-      color: theme.palette.text.secondary, fontSize: "32px", zIndex: 10,
-    }}>
-      <div style={{ width: "80px", height: "1px", background: `linear-gradient(to right, transparent, ${theme.palette.primary.light})` }} />
-      广东省高新技术高级技工学校 | HIGH TECH
-      <div style={{ width: "80px", height: "1px", background: `linear-gradient(to left, transparent, ${theme.palette.secondary.main})` }} />
-    </div>
+    {/* 条件渲染页脚 */}
+    {showFooter && (
+      <div style={{
+        position: "absolute", bottom: "40px", width: "100%", display: "flex",
+        justifyContent: "center", alignItems: "center", gap: "20px",
+        color: theme.palette.text.secondary, fontSize: "32px", zIndex: 10,
+      }}>
+        <div style={{ width: "80px", height: "1px", background: `linear-gradient(to right, transparent, ${theme.palette.primary.light})` }} />
+        广东省高新技术高级技工学校 | HIGH TECH
+        <div style={{ width: "80px", height: "1px", background: `linear-gradient(to left, transparent, ${theme.palette.secondary.main})` }} />
+      </div>
+    )}
     {children}
   </AbsoluteFill>
 );
 
-// --- 核心映射函数：根据 ID 渲染对应的组件 ---
-// 这样可以避免在 Props 中传递 JSX
+// --- 片段配置数据：在这里自定义每个组件是否显示页脚 ---
+const SECTION_CONFIG = [
+  { id: "Cover", duration: FPS * 5, showFooter: false },    // 封面通常不显示页脚
+  { id: "Intro", duration: FPS * 10, showFooter: true },
+  { id: "Honor", duration: FPS * 8, showFooter: false },
+  { id: "Majors", duration: FPS * 8, showFooter: false },
+  { id: "Campus", duration: 825, showFooter: true },      // 校园风景全屏展示，建议隐藏
+  { id: "StudentInfo", duration: FPS * 10, showFooter: false },
+  { id: "FinalQuote", duration: FPS * 5, showFooter: true },
+];
+
+// --- 核心映射函数 ---
 const renderSection = (id: string, props: any) => {
   const { hero, currentMajors, duration } = props;
   switch (id) {
@@ -58,35 +76,32 @@ const renderSection = (id: string, props: any) => {
   }
 };
 
-// --- 片段配置数据 ---
-const SECTION_CONFIG = [
-  { id: "Cover", duration: FPS * 5 },
-  { id: "Intro", duration: FPS * 10 },
-  { id: "Honor", duration: FPS * 8 },
-  { id: "Majors", duration: FPS * 8 },
-  { id: "Campus", duration: 825 },
-  { id: "StudentInfo", duration: FPS * 10 },
-  { id: "FinalQuote", duration: FPS * 5 },
-];
-
 // --- 1. 完整视频组件 ---
-const WholeVideo: React.FC<{ hero: any; currentMajors: any }> = ({ hero, currentMajors }) => (
-  <BaseLayout withAudio={true}>
-    <Series>
-      {SECTION_CONFIG.map((s) => (
-        <Series.Sequence key={s.id} durationInFrames={s.duration}>
-          {renderSection(s.id, { hero, currentMajors, duration: s.duration })}
-        </Series.Sequence>
-      ))}
-    </Series>
-  </BaseLayout>
-);
+const WholeVideo: React.FC<{ hero: any; currentMajors: any }> = ({ hero, currentMajors }) => {
+  // 获取当前播放帧对应的配置（用于动态切换页脚显示）
+  // 注意：在 Series 中，页脚如果需要跟随片段变化，我们需要在 Sequence 内部处理
+  return (
+    <AbsoluteFill>
+      <Series>
+        {SECTION_CONFIG.map((s) => (
+          <Series.Sequence key={s.id} durationInFrames={s.duration}>
+            <BaseLayout withAudio={false} showFooter={s.showFooter}>
+              {renderSection(s.id, { hero, currentMajors, duration: s.duration })}
+            </BaseLayout>
+          </Series.Sequence>
+        ))}
+      </Series>
+      {/* 这里的 Audio 放在 Series 同级以保证全局播放 */}
+      <Audio src={staticFile("welcome_music.mp3")} loop volume={0.6} />
+    </AbsoluteFill>
+  );
+};
 
 // --- 2. 分段视频组件 ---
-const SingleSection: React.FC<{ id: string; duration: number; hero: any; currentMajors: any }> = ({ 
-  id, duration, hero, currentMajors 
+const SingleSection: React.FC<{ id: string; duration: number; hero: any; currentMajors: any; showFooter: boolean }> = ({ 
+  id, duration, hero, currentMajors, showFooter 
 }) => (
-  <BaseLayout withAudio={false}>
+  <BaseLayout withAudio={false} showFooter={showFooter}>
     <Series>
       <Series.Sequence durationInFrames={duration}>
         {renderSection(id, { hero, currentMajors, duration })}
@@ -128,7 +143,8 @@ export const RemotionRoot: React.FC = () => {
             id: seg.id, 
             duration: seg.duration, 
             hero, 
-            currentMajors 
+            currentMajors,
+            showFooter: seg.showFooter // 传入配置的状态
           }}
         />
       ))}
