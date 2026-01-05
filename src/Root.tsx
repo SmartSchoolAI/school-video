@@ -94,8 +94,7 @@ const BaseLayout: React.FC<{
 // 原始完整版本：用于 Remotion Studio 预览（保留完整结构）
 const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
   const students = rawStudents as unknown as Student[];
-  const autoMajorDetails =
-    (students[1] && students[1].majorDetails) || props.majorDetails;
+  const autoMajorDetails = (students[1] && students[1].majorDetails) || props.majorDetails;
 
   return (
     <BaseLayout withAudio>
@@ -109,22 +108,17 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
             duration={fps * 5}
           />
         </Series.Sequence>
+
         {/* 2. 校园概览：环境与设施 (5–15秒 / 10秒) */}
         <Series.Sequence durationInFrames={fps * 10}>
           <Intro frame={0} duration={fps * 10} />
         </Series.Sequence>
+
         {/* 3. 核心优势与荣耀 */}
         <Series.Sequence durationInFrames={fps * 8}>
           <HonorMilestones frame={0} duration={fps * 8} />
         </Series.Sequence>
-        {/* 4. 专业梦想蓝图：电子商务（当前主角专业） */}
-        <Series.Sequence durationInFrames={fps * 8}>
-          <MajorDetails
-            majorDetails={props.majorDetails}
-            frame={0}
-            duration={fps * 8}
-          />
-        </Series.Sequence>
+
         {/* 5. 专业梦想蓝图：汽车维修专业介绍 */}
         <Series.Sequence durationInFrames={fps * 8}>
           <MajorDetails
@@ -133,14 +127,17 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
             duration={fps * 8}
           />
         </Series.Sequence>
+
         {/* 6. 校园风景独立段落 */}
         <Series.Sequence durationInFrames={825}>
           <CampusScenery />
         </Series.Sequence>
+
         {/* 7. 个人电子档案：主打明星学生档案 */}
         <Series.Sequence durationInFrames={fps * 10}>
           <StudentInfo {...props} frame={0} duration={fps * 10} />
         </Series.Sequence>
+
         {/* 8. 明星学生群像：5位学生轮播卡片 */}
         <Series.Sequence durationInFrames={fps * 9}>
           <StudentShowcase
@@ -149,10 +146,12 @@ const AdmissionLetterComp: React.FC<AdmissionVideoProps> = (props) => {
             duration={fps * 9}
           />
         </Series.Sequence>
+
         {/* 9. 号召行动与结语 */}
         <Series.Sequence durationInFrames={fps * 5}>
           <FinalQuote quote={props.quote} frame={0} duration={fps * 5} />
         </Series.Sequence>
+
       </Series>
     </BaseLayout>
   );

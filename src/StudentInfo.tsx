@@ -73,16 +73,15 @@ export const StudentInfo: React.FC<{
           {/* 左侧：科技紫档案卡 */}
           <div
             style={{
-              background:
-                "linear-gradient(135deg, rgba(24, 16, 48, 0.96), rgba(52, 21, 72, 0.98))",
+              background: "linear-gradient(135deg, rgba(59, 44, 102, 0.96), rgba(52, 21, 72, 0.98))",
               backdropFilter: "blur(30px)",
               borderRadius: "40px",
               border: "1px solid rgba(129, 140, 248, 0.7)",
               padding: "36px 40px",
-              boxShadow: "0 20px 55px rgba(15, 23, 42, 0.95)",
+              boxShadow: "0 38px 55px rgba(15, 23, 42, 0.95)",
             }}
           >
-            <div style={{ display: "flex", gap: "30px", marginBottom: "40px" }}>
+            <div style={{ display: "flex", gap: "30px", marginBottom: "20px" }}>
               <div 
                 style={{ 
                   position: "relative", 
@@ -103,11 +102,11 @@ export const StudentInfo: React.FC<{
                   alt="Student"
                 />
               </div>
-              <div style={{ margin: 0, padding: 0, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              <div style={{ margin: 0, padding: 0}}>
                 <h2
                   style={{
                     fontSize: "60px",
-                    marginBottom: "0",
+                    margin: "0",
                     color: theme.palette.secondary.light,
                     textShadow: "0 0 18px rgba(236, 72, 153, 0.9)",
                   }}
@@ -132,16 +131,6 @@ export const StudentInfo: React.FC<{
                 >
                   {major} / {className}
                 </div>
-                <div
-                  style={{
-                    marginTop: "10px",
-                    fontSize: "36px",
-                    color: theme.palette.text.secondary,
-                    opacity: 0.9,
-                  }}
-                >
-                  入学时间：{admissionDate}
-                </div>
               </div>
             </div>
 
@@ -149,23 +138,23 @@ export const StudentInfo: React.FC<{
               style={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
-                gap: "20px",
+                gap: "38px",
                 fontSize: "32px",
               }}
             >
               <div
                 style={{
-                  padding: "18px 20px",
+                  padding: "18px 38px",
                   background: "rgba(15,23,42,0.9)",
                   borderRadius: "18px",
                   boxShadow: "inset 0 0 0 1px rgba(129, 140, 248, 0.9)",
-                  fontSize: "20px",
+                  fontSize: "38px",
                 }}
               >
                 <div
                   style={{
                     opacity: 0.8,
-                    fontSize: "16px",
+                    fontSize: "32px",
                     marginBottom: "6px",
                     color: theme.palette.text.muted,
                   }}
@@ -176,17 +165,17 @@ export const StudentInfo: React.FC<{
               </div>
               <div
                 style={{
-                  padding: "18px 20px",
+                  padding: "18px 38px",
                   background: "rgba(15,23,42,0.9)",
                   borderRadius: "18px",
                   boxShadow: "inset 0 0 0 1px rgba(129, 140, 248, 0.9)",
-                  fontSize: "20px",
+                  fontSize: "38px",
                 }}
               >
                 <div
                   style={{
                     opacity: 0.8,
-                    fontSize: "16px",
+                    fontSize: "32px",
                     marginBottom: "6px",
                     color: theme.palette.text.muted,
                   }}
@@ -227,7 +216,7 @@ export const StudentInfo: React.FC<{
                 />
               </svg>
               <div
-                style={{ fontSize: "16px", lineHeight: "1.8", color: theme.palette.text.secondary }}
+                style={{ fontSize: "38px", lineHeight: "1.8", color: theme.palette.text.secondary }}
               >
                 【多维能力模型评定】
                 <br />
@@ -261,14 +250,15 @@ export const StudentInfo: React.FC<{
           >
             <h3
               style={{
-                fontSize: "30px",
+                fontSize: "48px",
                 color: theme.palette.secondary.main,
-                marginBottom: "26px",
+                margin: "8px",
+                marginBottom: "28px",
                 textAlign: "center",
                 letterSpacing: "4px",
               }}
             >
-              录取评测报告
+              2025-2026-第一学期 - 成绩单
             </h3>
             {grades.map((g, i) => {
               const spr = spring({
@@ -283,7 +273,7 @@ export const StudentInfo: React.FC<{
                       display: "flex",
                       justifyContent: "space-between",
                       marginBottom: "8px",
-                      fontSize: "32px",
+                      fontSize: "38px",
                     }}
                   >
                     <span>{g.subject}</span>
@@ -313,8 +303,8 @@ export const StudentInfo: React.FC<{
             })}
             <div
               style={{
-                marginTop: "34px",
-                padding: "18px 20px",
+                marginTop: "38px",
+                padding: "10px 10px",
                 border: `1px dashed ${theme.palette.secondary.main}`,
                 borderRadius: "18px",
                 textAlign: "center",
@@ -322,14 +312,16 @@ export const StudentInfo: React.FC<{
             >
               <p
                 style={{
-                  fontSize: "24px",
+                  fontSize: "38px",
                   fontWeight: "bold",
                   color: theme.palette.text.secondary,
+                  margin: "18px",
+                  marginBottom: "28px"
                 }}
               >
-                入学综合评分 95.5
+                个人综合评分 95.5
               </p>
-              <p style={{ fontSize: "14px", opacity: 0.7, marginTop: "8px" }}>
+              <p style={{ fontSize: "38px", opacity: 0.7, marginTop: "8px" }}>
                 恭喜通过高新智学评价体系认证
               </p>
             </div>
