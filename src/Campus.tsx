@@ -28,15 +28,12 @@ export const Campus: React.FC = () => {
       <div style={{ position: 'absolute', top: 20, left: 80, right: 80, color: theme.palette.text.primary, zIndex: 10 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
           <div>
-            <div style={{ fontSize: 22, letterSpacing: 4, color: theme.palette.secondary.main, marginBottom: 6 }}>
+            <div style={{ fontSize: 30, letterSpacing: 4, color: theme.palette.secondary.main, marginBottom: 8 }}>
               校园风光 · CAMPUS SCENERY
             </div>
-            <div style={{ fontSize: 40, fontWeight: 700, textShadow: '0 0 18px rgba(236,72,153,0.9)', transform: `translateY(${(1 - titleSpring) * -10}px)`, opacity: titleSpring }}>
+            <div style={{ fontSize: 46, fontWeight: 700, textShadow: '0 0 18px rgba(236,72,153,0.9)', transform: `translateY(${(1 - titleSpring) * -10}px)`, opacity: titleSpring }}>
               广东省高新技术高级技工学校
             </div>
-          </div>
-          <div style={{ fontSize: 16, color: theme.palette.text.secondary, textAlign: 'right', opacity: 0.8 }}>
-            校园环境展示<br />Future Skills · Bright Campus
           </div>
         </div>
 
@@ -63,7 +60,7 @@ export const Campus: React.FC = () => {
       </div>
 
       {/* 图片展示区域：核心优化逻辑 */}
-      <div style={{ position: 'absolute', top: 180, left: 50, right: 50, bottom: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
+      <div style={{ position: 'absolute', top: 160, left: 50, right: 50, bottom: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
         {IMAGES.map((img, i) => {
           // 计算每一张图自己的时间起点
           const startFrame = i * framesPerImage;

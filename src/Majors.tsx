@@ -29,7 +29,7 @@ export const Majors: React.FC<{
     <AbsoluteFill
       style={{
         opacity,
-        padding: "65px 24px 60px",
+        padding: "65px 60px 60px 60px",
         color: theme.palette.text.primary,
         display: "flex",
         justifyContent: "center",
@@ -43,7 +43,7 @@ export const Majors: React.FC<{
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
-            marginBottom: "48px",
+            marginBottom: "38px",
             borderBottom: `2px solid ${theme.palette.divider}`,
             paddingBottom: "20px",
             gap: "16px",
